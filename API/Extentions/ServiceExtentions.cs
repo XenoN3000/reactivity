@@ -1,3 +1,4 @@
+using Application;
 using Microsoft.EntityFrameworkCore;
 using Persistence;
 
@@ -20,6 +21,11 @@ public static class ServiceExtentions
     }
 
 
+    public static void AddMediatorConfig(this IServiceCollection services)
+    {
+        services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblies(typeof(List.Handler).Assembly));
+    }
+    
     public static void ConfigurDatabase(this IServiceCollection services, string connetionStringName) =>
         services.AddDbContext<DataContext>(opt =>
         {

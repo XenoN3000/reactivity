@@ -14,6 +14,7 @@ builder.Services.AddSwaggerGen();
 builder.Services.ConfigurDatabase(builder.Configuration.GetConnectionString("DefaultConnection") ?? throw new InvalidOperationException());
 builder.Services.ConfigureCors();
 builder.Services.ConfigureIISIntegration();
+builder.Services.AddMediatorConfig();
 
 var app = builder.Build();
 
