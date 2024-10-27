@@ -1,4 +1,5 @@
-using Application;
+using Application.Activities;
+using Application.Core;
 using Microsoft.EntityFrameworkCore;
 using Persistence;
 
@@ -25,10 +26,16 @@ public static class ServiceExtentions
     {
         services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblies(typeof(List.Handler).Assembly));
     }
+
+
+    public static void AddAutoMapperConfig(this IServiceCollection services)
+    {
+        services.AddAutoMapper(typeof(MappingProfiles).Assembly);
+    }
     
-    public static void ConfigurDatabase(this IServiceCollection services, string connetionStringName) =>
-        services.AddDbContext<DataContext>(opt =>
-        {
-            opt.UseSqlite(connetionStringName);
-        });
+    public static void ConfigurDatabase(this IServiceCollection services, string connetionStringName)
+    {
+        services.AddDbContext<DataContext>(opt => { opt.UseSqlite(connetionStringName); });
+    }
+    
 }
