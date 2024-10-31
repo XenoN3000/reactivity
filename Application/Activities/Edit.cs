@@ -11,7 +11,7 @@ public class Edit
     {
         public Activity Activity { get; set; }
     }
-    
+
     public class Handler : IRequestHandler<Command>
     {
         private readonly DataContext _dataContext;
@@ -25,10 +25,10 @@ public class Edit
 
         public async Task Handle(Command request, CancellationToken cancellationToken)
         {
-            var  activity = await _dataContext.Activities.FindAsync(request.Activity.Id);
-            
-            _mapper.Map(request.Activity, activity);
-            
+            var activity = await _dataContext.Activities.FindAsync(request.Activity.Id, cancellationToken);
+
+
+            if (activity != null) _mapper.Map(request.Activity, activity);
             
             await _dataContext.SaveChangesAsync(cancellationToken);
         }
