@@ -11,7 +11,7 @@ public class Details
         public Guid Id { get; set; }
     }
 
-    public class Handler : IRequestHandler<Query,  Activity>
+    public class Handler : IRequestHandler<Query, Activity>
     {
         private readonly DataContext _context;
 
@@ -25,5 +25,5 @@ public class Details
             return await _context.Activities.FindAsync(request.Id, cancellationToken);
         }
     }
-    
+
 }
