@@ -14,7 +14,7 @@ export default observer(function ActivityForm() {
 
 	const {activityStore} = useStore();
 	const {
-		selectedActivity, createActivity, updateActivity,
+		createActivity, updateActivity,
 		loading, loadActivity, loadingInitial
 	} = activityStore;
 	const {id} = useParams();
@@ -38,9 +38,9 @@ export default observer(function ActivityForm() {
 
 
 	function handleSubmit() {
-		if (!activity.id){
+		if (!activity.id) {
 			activity.id = uuid();
-			createActivity(activity).then(()=>{
+			createActivity(activity).then(() => {
 				navigate(`/activities/${activity.id}`);
 			});
 		} else {
@@ -57,7 +57,7 @@ export default observer(function ActivityForm() {
 		setActivity({...activity, [name]: value});
 	}
 
-	if (loadingInitial) return <LoadingComponent content={"Loading Activity..."} />;
+	if (loadingInitial) return <LoadingComponent content={"Loading Activity..."}/>;
 
 	return (
 		<Segment clearing={true}>
