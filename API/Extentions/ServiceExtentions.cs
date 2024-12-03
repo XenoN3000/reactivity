@@ -1,5 +1,8 @@
+using System.Reflection;
 using Application.Activities;
 using Application.Core;
+using FluentValidation;
+using FluentValidation.AspNetCore;
 using Microsoft.EntityFrameworkCore;
 using Persistence;
 
@@ -17,7 +20,7 @@ public static class ServiceExtentions
     }
 
     public static void ConfigureIISIntegration(this IServiceCollection services)
-    {
+    {  
         services.Configure<IISOptions>(option => { });
     }
 
@@ -31,6 +34,12 @@ public static class ServiceExtentions
     public static void AddAutoMapperConfig(this IServiceCollection services)
     {
         services.AddAutoMapper(typeof(MappingProfiles).Assembly);
+    }
+
+    public static void AddValidationConfig(this IServiceCollection services)
+    {
+        services.AddFluentValidationAutoValidation();
+        services.AddValidatorsFromAssemblyContaining<Create>();
     }
     
     public static void ConfigurDatabase(this IServiceCollection services, string connetionStringName)
