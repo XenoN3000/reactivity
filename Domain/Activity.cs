@@ -3,6 +3,9 @@
 // using System.Linq;
 // using System.Threading.Tasks;
 
+using System.Diagnostics.CodeAnalysis;
+using System.Runtime.CompilerServices;
+
 namespace Domain
 {
     public class Activity

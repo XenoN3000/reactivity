@@ -1,0 +1,1286 @@
+# Reactivities
+
+#url
+@url = http://localhost:5000
+
+
+
+###
+# group: Module 2
+# @name Get Weather Forecast
+GET http://localhost:5000/weatherforecast
+
+###
+# group: Module 2
+# @name Get Activities
+GET {{url}}/api/activities
+
+###
+# group: Module 2
+# @name Get Activity
+GET {{url}}/api/activities/66c1fb8e-35f0-4177-b7bf-98f24ad3811c
+
+###
+# group: Module 4
+# @name Get Activities
+GET {{url}}/api/activities
+Authorization: Bearer {{token}}
+
+###
+# group: Module 4
+# @name Get Activity
+GET {{url}}/api/activities/592b8968-ba9d-4584-90b7-4c19c20a3263
+
+###
+# group: Module 4
+# @name Create Activity
+//< {%
+    // TODO: migrate to HTTP Client Pre-request handler API
+    // var moment = require("moment");
+    
+    // 
+    
+    // pm.environment.set('activityDate', moment().add(14, 'days').toISOString());
+//%}
+POST {{url}}/api/activities/
+Content-Type: application/json
+
+{
+	"id": "{{$guid}}",
+	"title": "Test Create Activity",
+	"description": "Description of the test event",
+	"category": "Culture",
+	"date": "{{activityDate}}",
+	"city": "London",
+	"venue": "Tower of London"
+}
+
+###
+# group: Module 4
+# @name Edit Activity
+//< {%
+    // TODO: migrate to HTTP Client Pre-request handler API
+    // var moment = require("moment");
+    
+    // 
+    
+    // pm.environment.set('activityDate', moment().add(14, 'days').toISOString());
+//%}
+PUT {{url}}/api/activities/592b8968-ba9d-4584-90b7-4c19c20a3263
+Content-Type: application/json
+
+{
+	"title": "Test Create Activity updated 2",
+	"description": "Description of the test event updated 2",
+	"category": "Culture",
+	"date": "{{activityDate}}",
+	"city": "London",
+	"venue": "Tower of London updated"
+}
+
+###
+# group: Module 4
+# @name Delete Activity
+//< {%
+    // TODO: you can add here Pre-request handler
+//%}
+DELETE {{url}}/api/activities/bc0bd95c-8760-4c88-be9c-5ae22d29aa8f
+Content-Type: application/json
+
+###
+# group: Module 10
+# @name Get non existant activity
+GET {{url}}/api/activities/d51e33de-105b-4549-96d9-8ba2c7b05a30
+Content-Type: application/json
+
+###
+# group: Module 10
+# @name Create Empty Activity
+POST {{url}}/api/activities
+Content-Type: application/json
+
+{}
+
+###
+# group: Module 10
+# @name Edit an Activity missing fields
+PUT {{url}}/api/activities/e80c88e7-3823-4bb7-8ecf-a5249e7091d4
+Content-Type: application/json
+
+{
+  "title": ""
+}
+
+###
+# group: Module 10
+# @name Edit an Activity correct
+//< {%
+    // TODO: migrate to HTTP Client Pre-request handler API
+    // var moment = require("moment");
+    
+    // 
+    
+    // pm.environment.set('activityDate', moment().add(14, 'days').toISOString());
+//%}
+PUT {{url}}/api/activities/2
+Content-Type: application/json
+
+{
+	"title": "Test Create Activity updated",
+	"description": "Description of the test event",
+	"category": "Culture",
+	"date": "{{activityDate}}",
+	"city": "London",
+	"venue": "Tower of London"
+}
+
+###
+# group: Module 10
+# @name Delete non existent activity
+DELETE {{url}}/api/activities/d51e33de-105b-4549-96d9-8ba2c7b05a30
+Content-Type: application/json
+
+###
+# group: Module 12
+# @name Login user successful
+POST {{url}}/api/account/login
+Content-Type: application/json
+
+{
+  "email": "bob@test.com",
+  "password": "Pa$$w0rd"
+}
+
+###
+# group: Module 12
+# @name Login user validation error
+POST {{url}}/api/account/login
+Content-Type: application/json
+
+{
+  "email": "bob@test.com",
+  "password": ""
+}
+
+###
+# group: Module 12
+# @name Login user bad password
+POST {{url}}/api/account/login
+Content-Type: application/json
+
+{
+  "email": "bob@test.com",
+  "password": "badpassword"
+}
+
+###
+# group: Module 12
+# @name Login user bad email
+POST {{url}}/api/account/login
+Content-Type: application/json
+
+{
+  "email": "fake@test.com",
+  "password": "Pa$$w0rd"
+}
+
+###
+# group: Module 12
+# @name Get Activites no auth
+GET {{url}}/api/activities
+
+###
+# group: Module 12
+# @name Get Activity no auth
+GET {{url}}/api/activities/e39e99f5-2359-43c6-828f-4491a8ea5def
+
+###
+# group: Module 12
+# @name Get Activity with auth
+GET {{url}}/api/activities/2908f8e1-cc15-41fe-af8e-3bd1cc91d3b9
+Authorization: Bearer eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJ1bmlxdWVfbmFtZSI6ImJvYiIsIm5hbWVpZCI6ImIyMzkyNmE5LWQ0ODEtNGQ2ZS04N2E2LWQ4ZDM0OWNjYjFiZiIsImVtYWlsIjoiYm9iQHRlc3QuY29tIiwibmJmIjoxNzMzNTI5ODkyLCJleHAiOjE3MzYxMjE4OTIsImlhdCI6MTczMzUyOTg5Mn0.mQO74JWadqTCH_OSVmSbFXmW2zrHGxvIVfzIkw6Ubnxt4Q31ejarfRk1fx1nThgiglD--MZpuQ2yJMqS4K8J6A
+
+###
+# group: Module 12
+# @name Register user successfull
+POST {{url}}/api/account/register
+Content-Type: application/json
+
+{
+  "email": "jim@test.com",
+  "username": "jim",
+  "displayName": "James",
+  "password": "Pa$$w0rd"
+}
+
+###
+# group: Module 12
+# @name Register user validation error
+POST {{url}}/api/account/register
+Content-Type: application/json
+
+{
+  "email": "sally@test.com",
+  "username": "sally",
+  "password": "Pa$$w0rd"
+}
+
+###
+# group: Module 12
+# @name Register user duplicate email
+POST {{url}}/api/account/register
+Content-Type: application/json
+
+{
+  "email": "bob@test.com",
+  "username": "fakebob",
+  "displayName": "Bob",
+  "password": "Pa$$w0rd"
+}
+
+###
+# group: Module 12
+# @name Register user duplicate username
+POST {{url}}/api/account/register
+Content-Type: application/json
+
+{
+  "email": "fakebob@test.com",
+  "username": "bob",
+  "displayName": "FakeBob",
+  "password": "Pa$$w0rd"
+}
+
+###
+# group: Module 12
+# @name Register user weak password
+POST {{url}}/api/account/register
+Content-Type: application/json
+
+{
+  "email": "letmein@test.com",
+  "username": "LetMeIn",
+  "displayName": "Let Me In",
+  "password": "letmein"
+}
+
+###
+# group: Module 12
+# @name Get current user
+GET {{url}}/api/account
+Authorization: Bearer eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJ1bmlxdWVfbmFtZSI6ImJvYiIsIm5hbWVpZCI6ImY3YmMxZWY3LThhNGMtNDU0NS1hZDI1LTgzMWVlYTJjOGQyYyIsImVtYWlsIjoiYm9iQHRlc3QuY29tIiwibmJmIjoxNjA1MTU1ODc5LCJleHAiOjE2MDU3NjA2NzksImlhdCI6MTYwNTE1NTg3OX0.gbmrzEIllx2ds2vPj5N5-zwyYsil_ttF2PsxleFvHQ5FIwOfxJuWQolojBvAgaIJEsV9kJClQJBq7gyY32LSdQ
+
+###
+# group: Module 14
+# @name Login as bob and save token to env
+POST {{url}}/api/account/login
+Content-Type: application/json
+
+{
+  "email": "bob@test.com",
+  "password": "Pa$$w0rd"
+}
+
+> {%
+    // TODO: migrate to HTTP Client Response handler API
+    // const user = pm.response.json();
+    //
+    // pm.test("Has properties", function () {
+    //     pm.expect(user).to.have.property('displayName');
+    //     pm.expect(user).to.have.property('username');
+    //     pm.expect(user).to.have.property('image');
+    //     pm.expect(user).to.have.property('token');
+    // });
+    //
+    // if (pm.test("Has properties")) {
+    //     pm.globals.set('token', user.token);
+    // }
+    //
+    // pm.test("Global token has been set", function() {
+    //     var token = pm.globals.get('token');
+    //     pm.expect(token).to.eql(user.token);
+    // });
+%}
+
+###
+# group: Module 14
+# @name Login as tom and save token to env
+POST {{url}}/api/account/login
+Content-Type: application/json
+
+{
+  "email": "tom@test.com",
+  "password": "Pa$$w0rd"
+}
+
+> {%
+    // TODO: migrate to HTTP Client Response handler API
+    // const user = pm.response.json();
+    //
+    // pm.test("Has properties", function () {
+    //     pm.expect(user).to.have.property('displayName');
+    //     pm.expect(user).to.have.property('username');
+    //     pm.expect(user).to.have.property('image');
+    //     pm.expect(user).to.have.property('token');
+    // });
+    //
+    // if (pm.test("Has properties")) {
+    //     pm.globals.set('tom_token', user.token);
+    // }
+    //
+    // pm.test("Global token has been set", function() {
+    //     var token = pm.globals.get('tom_token');
+    //     pm.expect(token).to.eql(user.token);
+    // });
+%}
+
+###
+# group: Module 14
+# @name Create Activity current user host
+//< {%
+    // TODO: migrate to HTTP Client Pre-request handler API
+    // var moment = require("moment");
+    
+    // 
+    
+    // pm.environment.set('activityDate', moment().add(14, 'days').toISOString());
+//%}
+POST {{url}}/api/activities
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+	"id": "{{$guid}}",
+	"title": "Test event with bob as host",
+	"description": "Description of the test event",
+	"category":"drinks",
+	"date": "{{activityDate}}",
+	"city": "London",
+	"venue": "London venue"
+}
+
+> {%
+    // TODO: migrate to HTTP Client Response handler API
+    // // response to be 200
+    // pm.test("response is ok", function() {
+    //     pm.response.to.have.status(200)
+    // });
+%}
+
+###
+# group: Module 14
+# @name Get Activities
+GET {{url}}/api/activities
+Authorization: Bearer {{token}}
+
+> {%
+    // TODO: migrate to HTTP Client Response handler API
+    // var data = pm.response.json();
+    //
+    // // response to be 200
+    // pm.test("response is 200", function() {
+    //     pm.response.to.have.status(200)
+    // });
+    //
+    // pm.test("has all properties", function() {
+    //     pm.expect(data[0]).to.have.property('id');
+    //     pm.expect(data[0]).to.have.property('title');
+    //     pm.expect(data[0]).to.have.property('description');
+    //     pm.expect(data[0]).to.have.property('date');
+    //     pm.expect(data[0]).to.have.property('city');
+    //     pm.expect(data[0]).to.have.property('venue');
+    //     pm.expect(data[0]).to.have.property('attendees');
+    // });
+%}
+
+###
+# group: Module 14
+# @name Get Activity Details
+GET {{url}}/api/activities/081a75b0-ef5d-4efc-b3c7-0a7668e94396
+Authorization: Bearer {{token}}
+
+> {%
+    // TODO: migrate to HTTP Client Response handler API
+    // var data = pm.response.json();
+    //
+    // // response to be 200
+    // pm.test("response is created", function() {
+    //     pm.response.to.have.status(200)
+    // });
+    //
+    // pm.test("has all properties", function() {
+    //     pm.expect(data).to.have.property('id');
+    //     pm.expect(data).to.have.property('title');
+    //     pm.expect(data).to.have.property('description');
+    //     pm.expect(data).to.have.property('date');
+    //     pm.expect(data).to.have.property('city');
+    //     pm.expect(data).to.have.property('venue');
+    //     pm.expect(data).to.have.property('attendees');
+    // });
+%}
+
+###
+# group: Module 14
+# @name Update attendance as bob
+POST {{url}}/api/activities/031b0d7b-2fd4-4756-98fd-58a49bb799e1/attend
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+> {%
+    // TODO: migrate to HTTP Client Response handler API
+    // var data = pm.response.json();
+    //
+    // // response to be 200
+    // pm.test("response is 200", function() {
+    //     pm.response.to.have.status(200);
+    // });
+%}
+
+###
+# group: Module 14
+# @name Update attendance as tom
+POST {{url}}/api/activities/081a75b0-ef5d-4efc-b3c7-0a7668e94396/attend
+Content-Type: application/json
+Authorization: Bearer {{tom_token}}
+
+> {%
+    // TODO: migrate to HTTP Client Response handler API
+    // var data = pm.response.json();
+    //
+    // // response to be 200
+    // pm.test("response is 200", function() {
+    //     pm.response.to.have.status(200);
+    // });
+%}
+
+###
+# group: Module 14
+# @name Cancel activity by host
+POST {{url}}/api/activities/b8759f1c-5441-4130-a472-c8cfc3d46d76/attend
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+> {%
+    // TODO: migrate to HTTP Client Response handler API
+    // var data = pm.response.json();
+    //
+    // // response to be 200
+    // pm.test("response is 400", function() {
+    //     pm.response.to.have.status(400);
+    // });
+%}
+
+###
+# group: Module 14
+# @name Edit an Activity as Bob who is host
+//< {%
+    // TODO: migrate to HTTP Client Pre-request handler API
+    // var moment = require("moment");
+    
+    // 
+    
+    // pm.environment.set('activityDate', moment().add(14, 'days').toISOString());
+//%}
+PUT {{url}}/api/activities/e9b21236-99a5-4015-9b0c-380b486cf2c2
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+	"title": "Editing activity as bob the host",
+	"description": "Description of the test event",
+	"category": "Culture",
+	"date": "{{activityDate}}",
+	"city": "London",
+	"venue": "Tower of London"
+}
+
+###
+# group: Module 14
+# @name Edit an Activity as Tom not host
+//< {%
+    // TODO: migrate to HTTP Client Pre-request handler API
+    // var moment = require("moment");
+    
+    // 
+    
+    // pm.environment.set('activityDate', moment().add(14, 'days').toISOString());
+//%}
+PUT {{url}}/api/activities/081a75b0-ef5d-4efc-b3c7-0a7668e94396
+Content-Type: application/json
+Authorization: Bearer {{tom_token}}
+
+{
+	"title": "Editing activity as tom - not host should fail with 403",
+	"description": "Description of the test event",
+	"category": "Culture",
+	"date": "{{activityDate}}",
+	"city": "London",
+	"venue": "Tower of London"
+}
+
+###
+# group: Module 14
+# @name Delete activity as Tom not host
+DELETE {{url}}/api/activities/2ee2335f-aef3-46cb-85fd-5d123bfca189
+Content-Type: application/json
+Authorization: Bearer {{tom_token}}
+
+###
+# group: Module 14
+# @name Delete activity as Bob host
+DELETE {{url}}/api/activities/2ee2335f-aef3-46cb-85fd-5d123bfca189
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+###
+# group: Module 16
+# @name Login as bob and save token to env
+POST {{url}}/api/account/login
+Content-Type: application/json
+
+{
+  "email": "bob@test.com",
+  "password": "Pa$$w0rd"
+}
+
+> {%
+    // TODO: migrate to HTTP Client Response handler API
+    // const user = pm.response.json();
+    //
+    // pm.test("Has properties", function () {
+    //     pm.expect(user).to.have.property('displayName');
+    //     pm.expect(user).to.have.property('username');
+    //     pm.expect(user).to.have.property('image');
+    //     pm.expect(user).to.have.property('token');
+    // });
+    //
+    // if (pm.test("Has properties")) {
+    //     pm.globals.set('token', user.token);
+    // }
+    //
+    // pm.test("Global token has been set", function() {
+    //     var token = pm.globals.get('token');
+    //     pm.expect(token).to.eql(user.token);
+    // });
+%}
+
+###
+# group: Module 16
+# @name Add Photo
+POST {{url}}/api/photos
+Authorization: Bearer {{token}}
+Content-Type: multipart/form-data; boundary=WebAppBoundary
+
+--WebAppBoundary
+Content-Disposition: form-data; name="File"; filename=""
+
+--WebAppBoundary
+
+###
+# group: Module 16
+# @name Get current user
+GET {{url}}/api/account
+Authorization: Bearer {{token}}
+
+###
+# group: Module 16
+# @name Delete Photo
+DELETE {{url}}/api/photos/houh9nt3vhxesvc0bsn7
+Authorization: Bearer {{token}}
+
+###
+# group: Module 16
+# @name Set Main Photo
+POST {{url}}/api/photos/kcdyuovk08n68z4crpyn/setmain
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{}
+
+###
+# group: Module 16
+# @name Get Profile
+GET {{url}}/api/profiles/bob
+Authorization: Bearer {{token}}
+
+###
+# group: Module 16
+# @name Get Profile Tom
+GET {{url}}/api/profiles/tom
+Authorization: Bearer {{token}}
+
+###
+# group: Module 16
+# @name Add Photo Tom
+POST {{url}}/api/photos
+Authorization: Bearer {{tom_token}}
+Content-Type: multipart/form-data; boundary=WebAppBoundary
+
+--WebAppBoundary
+Content-Disposition: form-data; name="File"; filename="superman1.png"
+
+< /Users/neil/Desktop/APIPhotos/superman1.png
+--WebAppBoundary
+
+###
+# group: Module 18
+# @name Login as bob and save token to env
+POST {{url}}/api/account/login
+Content-Type: application/json
+
+{
+  "email": "bob@test.com",
+  "password": "Pa$$w0rd"
+}
+
+> {%
+    // TODO: migrate to HTTP Client Response handler API
+    // const user = pm.response.json();
+    //
+    // pm.test("Has properties", function () {
+    //     pm.expect(user).to.have.property('displayName');
+    //     pm.expect(user).to.have.property('username');
+    //     pm.expect(user).to.have.property('image');
+    //     pm.expect(user).to.have.property('token');
+    // });
+    //
+    // if (pm.test("Has properties")) {
+    //     pm.globals.set('token', user.token);
+    // }
+    //
+    // pm.test("Global token has been set", function() {
+    //     var token = pm.globals.get('token');
+    //     pm.expect(token).to.eql(user.token);
+    // });
+%}
+
+###
+# group: Module 18
+# @name Update User Bio
+PUT {{url}}/api/profiles
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "displayName": "Bob",
+  "bio": "Hello from Bob!"
+}
+
+###
+# group: Module 18
+# @name Get Profile
+GET {{url}}/api/profiles/bob
+Authorization: Bearer {{token}}
+
+###
+# group: Module 20
+# @name Login as bob and save token to env
+POST {{url}}/api/account/login
+Content-Type: application/json
+
+{
+  "email": "bob@test.com",
+  "password": "Pa$$w0rd"
+}
+
+> {%
+    // TODO: migrate to HTTP Client Response handler API
+    // const user = pm.response.json();
+    //
+    // pm.test("Has properties", function () {
+    //     pm.expect(user).to.have.property('displayName');
+    //     pm.expect(user).to.have.property('username');
+    //     pm.expect(user).to.have.property('image');
+    //     pm.expect(user).to.have.property('token');
+    // });
+    //
+    // if (pm.test("Has properties")) {
+    //     pm.globals.set('token', user.token);
+    // }
+    //
+    // pm.test("Global token has been set", function() {
+    //     var token = pm.globals.get('token');
+    //     pm.expect(token).to.eql(user.token);
+    // });
+%}
+
+###
+# group: Module 20
+# @name Login as tom and save token to env
+POST {{url}}/api/account/login
+Content-Type: application/json
+
+{
+  "email": "tom@test.com",
+  "password": "Pa$$w0rd"
+}
+
+> {%
+    // TODO: migrate to HTTP Client Response handler API
+    // const user = pm.response.json();
+    //
+    // pm.test("Has properties", function () {
+    //     pm.expect(user).to.have.property('displayName');
+    //     pm.expect(user).to.have.property('username');
+    //     pm.expect(user).to.have.property('image');
+    //     pm.expect(user).to.have.property('token');
+    // });
+    //
+    // if (pm.test("Has properties")) {
+    //     pm.globals.set('tom_token', user.token);
+    // }
+    //
+    // pm.test("Global token has been set", function() {
+    //     var token = pm.globals.get('tom_token');
+    //     pm.expect(token).to.eql(user.token);
+    // });
+%}
+
+###
+# group: Module 20
+# @name Get Bob's Profile
+GET {{url}}/api/profiles/bob
+Authorization: Bearer {{token}}
+
+###
+# group: Module 20
+# @name Get Tom's Profile as Bob
+GET {{url}}/api/profiles/tom
+Authorization: Bearer {{token}}
+
+###
+# group: Module 20
+# @name Follow tom
+POST {{url}}/api/follow/tom
+Authorization: Bearer {{token}}
+
+###
+# group: Module 20
+# @name Get Bob's Followings
+GET {{url}}/api/follow/bob?
+    predicate=following
+Authorization: Bearer {{token}}
+
+###
+# group: Module 20
+# @name Get Bob's Followers
+GET {{url}}/api/follow/bob?
+    predicate=followers
+Authorization: Bearer {{token}}
+
+###
+# group: Module 20
+# @name Get Tom's Followings
+GET {{url}}/api/follow/tom?
+    predicate=following
+Authorization: Bearer {{token}}
+
+###
+# group: Module 20
+# @name Get Tom's Followers
+GET {{url}}/api/follow/tom?
+    predicate=followers
+Authorization: Bearer {{token}}
+
+###
+# group: Module 20
+# @name Follow bob as tom
+POST {{url}}/api/follow/bob
+Authorization: Bearer {{tom_token}}
+
+###
+# group: Module 21
+# @name Login as bob and save token to env
+POST {{url}}/api/account/login
+Content-Type: application/json
+
+{
+  "email": "bob@test.com",
+  "password": "Pa$$w0rd"
+}
+
+> {%
+    // TODO: migrate to HTTP Client Response handler API
+    // const user = pm.response.json();
+    //
+    // pm.test("Has properties", function () {
+    //     pm.expect(user).to.have.property('displayName');
+    //     pm.expect(user).to.have.property('username');
+    //     pm.expect(user).to.have.property('image');
+    //     pm.expect(user).to.have.property('token');
+    // });
+    //
+    // if (pm.test("Has properties")) {
+    //     pm.globals.set('token', user.token);
+    // }
+    //
+    // pm.test("Global token has been set", function() {
+    //     var token = pm.globals.get('token');
+    //     pm.expect(token).to.eql(user.token);
+    // });
+%}
+
+###
+# group: Module 21
+# @name Get Activities no queryString
+GET {{url}}/api/activities
+Authorization: Bearer {{token}}
+
+> {%
+    // TODO: migrate to HTTP Client Response handler API
+    // var data = pm.response.json();
+    //
+    // // response to be 200
+    // pm.test("response is 200", function() {
+    //     pm.response.to.have.status(200)
+    // });
+    //
+    // pm.test("has all properties", function() {
+    //     pm.expect(data[0]).to.have.property('id');
+    //     pm.expect(data[0]).to.have.property('title');
+    //     pm.expect(data[0]).to.have.property('description');
+    //     pm.expect(data[0]).to.have.property('date');
+    //     pm.expect(data[0]).to.have.property('city');
+    //     pm.expect(data[0]).to.have.property('venue');
+    //     pm.expect(data[0]).to.have.property('attendees');
+    // });
+    //
+    // pm.test("has pagination header", function() {
+    //     pm.response.to.have.header("pagination")
+    // })
+%}
+
+###
+# group: Module 21
+# @name Get Activities pageSize 2
+GET {{url}}/api/activities?
+    pageSize=2
+Authorization: Bearer {{token}}
+
+> {%
+    // TODO: migrate to HTTP Client Response handler API
+    // var data = pm.response.json();
+    //
+    // // response to be 200
+    // pm.test("response is 200", function() {
+    //     pm.response.to.have.status(200)
+    // });
+    //
+    // pm.test("has all properties", function() {
+    //     pm.expect(data[0]).to.have.property('id');
+    //     pm.expect(data[0]).to.have.property('title');
+    //     pm.expect(data[0]).to.have.property('description');
+    //     pm.expect(data[0]).to.have.property('date');
+    //     pm.expect(data[0]).to.have.property('city');
+    //     pm.expect(data[0]).to.have.property('venue');
+    //     pm.expect(data[0]).to.have.property('attendees');
+    // });
+    //
+    // pm.test("has pagination header", function() {
+    //     pm.response.to.have.header("pagination")
+    // })
+%}
+
+###
+# group: Module 21
+# @name Get Activities pageSize 2 pageNumber 2
+GET {{url}}/api/activities?
+    pageSize=2&
+    pageNumber=2
+Authorization: Bearer {{token}}
+
+> {%
+    // TODO: migrate to HTTP Client Response handler API
+    // var data = pm.response.json();
+    //
+    // // response to be 200
+    // pm.test("response is 200", function() {
+    //     pm.response.to.have.status(200)
+    // });
+    //
+    // pm.test("has all properties", function() {
+    //     pm.expect(data[0]).to.have.property('id');
+    //     pm.expect(data[0]).to.have.property('title');
+    //     pm.expect(data[0]).to.have.property('description');
+    //     pm.expect(data[0]).to.have.property('date');
+    //     pm.expect(data[0]).to.have.property('city');
+    //     pm.expect(data[0]).to.have.property('venue');
+    //     pm.expect(data[0]).to.have.property('attendees');
+    // });
+    //
+    // pm.test("has pagination header", function() {
+    //     pm.response.to.have.header("pagination")
+    // })
+%}
+
+###
+# group: Module 21
+# @name Get Activities bob is attending
+GET {{url}}/api/activities?
+    isgoing=true
+Authorization: Bearer {{token}}
+
+> {%
+    // TODO: migrate to HTTP Client Response handler API
+    // var data = pm.response.json();
+    //
+    // // response to be 200
+    // pm.test("response is 200", function() {
+    //     pm.response.to.have.status(200)
+    // });
+    //
+    // pm.test("has all properties", function() {
+    //     pm.expect(data[0]).to.have.property('id');
+    //     pm.expect(data[0]).to.have.property('title');
+    //     pm.expect(data[0]).to.have.property('description');
+    //     pm.expect(data[0]).to.have.property('date');
+    //     pm.expect(data[0]).to.have.property('city');
+    //     pm.expect(data[0]).to.have.property('venue');
+    //     pm.expect(data[0]).to.have.property('attendees');
+    // });
+    //
+    // pm.test("has pagination header", function() {
+    //     pm.response.to.have.header("pagination")
+    // })
+%}
+
+###
+# group: Module 21
+# @name Get Activities bob is hosting
+GET {{url}}/api/activities?
+    ishost=true
+Authorization: Bearer {{token}}
+
+> {%
+    // TODO: migrate to HTTP Client Response handler API
+    // var data = pm.response.json();
+    //
+    // // response to be 200
+    // pm.test("response is 200", function() {
+    //     pm.response.to.have.status(200)
+    // });
+    //
+    // pm.test("has all properties", function() {
+    //     pm.expect(data[0]).to.have.property('id');
+    //     pm.expect(data[0]).to.have.property('title');
+    //     pm.expect(data[0]).to.have.property('description');
+    //     pm.expect(data[0]).to.have.property('date');
+    //     pm.expect(data[0]).to.have.property('city');
+    //     pm.expect(data[0]).to.have.property('venue');
+    //     pm.expect(data[0]).to.have.property('attendees');
+    // });
+    //
+    // pm.test("has pagination header", function() {
+    //     pm.response.to.have.header("pagination")
+    // })
+%}
+
+###
+# group: Module 21
+# @name Get Activities starting in 2 months time
+//< {%
+    // TODO: migrate to HTTP Client Pre-request handler API
+    // var moment = require("moment");
+    
+    // 
+    
+    // pm.environment.set('activityDate', moment().add(2, 'months').toISOString());
+//%}
+GET {{url}}/api/activities?
+    startDate={{activityDate}}
+Authorization: Bearer {{token}}
+
+> {%
+    // TODO: migrate to HTTP Client Response handler API
+    // var data = pm.response.json();
+    //
+    // // response to be 200
+    // pm.test("response is 200", function() {
+    //     pm.response.to.have.status(200)
+    // });
+    //
+    // pm.test("has all properties", function() {
+    //     pm.expect(data[0]).to.have.property('id');
+    //     pm.expect(data[0]).to.have.property('title');
+    //     pm.expect(data[0]).to.have.property('description');
+    //     pm.expect(data[0]).to.have.property('date');
+    //     pm.expect(data[0]).to.have.property('city');
+    //     pm.expect(data[0]).to.have.property('venue');
+    //     pm.expect(data[0]).to.have.property('attendees');
+    // });
+    //
+    // pm.test("has pagination header", function() {
+    //     pm.response.to.have.header("pagination")
+    // })
+%}
+
+###
+# group: Module 21
+# @name Get Activities starting in 2 months time bob is going to
+//< {%
+    // TODO: migrate to HTTP Client Pre-request handler API
+    // var moment = require("moment");
+    
+    // 
+    
+    // pm.environment.set('activityDate', moment().add(4, 'months').toISOString());
+//%}
+GET {{url}}/api/activities?
+    startDate={{activityDate}}&
+    isGoing=true
+Authorization: Bearer {{token}}
+
+> {%
+    // TODO: migrate to HTTP Client Response handler API
+    // var data = pm.response.json();
+    //
+    // // response to be 200
+    // pm.test("response is 200", function() {
+    //     pm.response.to.have.status(200)
+    // });
+    //
+    // pm.test("has all properties", function() {
+    //     pm.expect(data[0]).to.have.property('id');
+    //     pm.expect(data[0]).to.have.property('title');
+    //     pm.expect(data[0]).to.have.property('description');
+    //     pm.expect(data[0]).to.have.property('date');
+    //     pm.expect(data[0]).to.have.property('city');
+    //     pm.expect(data[0]).to.have.property('venue');
+    //     pm.expect(data[0]).to.have.property('attendees');
+    // });
+    //
+    // pm.test("has pagination header", function() {
+    //     pm.response.to.have.header("pagination")
+    // })
+%}
+
+###
+# group: Module 21
+# @name Get Activities starting 3 months ago
+//< {%
+    // TODO: migrate to HTTP Client Pre-request handler API
+    // var moment = require("moment");
+    
+    // 
+    
+    // pm.environment.set('activityDate', moment().add(-3, 'months').toISOString());
+//%}
+GET {{url}}/api/activities?
+    startDate={{activityDate}}&
+    isGoing=true
+Authorization: Bearer {{token}}
+
+> {%
+    // TODO: migrate to HTTP Client Response handler API
+    // var data = pm.response.json();
+    //
+    // // response to be 200
+    // pm.test("response is 200", function() {
+    //     pm.response.to.have.status(200)
+    // });
+    //
+    // pm.test("has all properties", function() {
+    //     pm.expect(data[0]).to.have.property('id');
+    //     pm.expect(data[0]).to.have.property('title');
+    //     pm.expect(data[0]).to.have.property('description');
+    //     pm.expect(data[0]).to.have.property('date');
+    //     pm.expect(data[0]).to.have.property('city');
+    //     pm.expect(data[0]).to.have.property('venue');
+    //     pm.expect(data[0]).to.have.property('attendees');
+    // });
+    //
+    // pm.test("has pagination header", function() {
+    //     pm.response.to.have.header("pagination")
+    // })
+%}
+
+###
+# group: Module 21
+# @name Get Bob's Activities - past
+GET {{url}}/api/profiles/bob/activities?
+    predicate=past
+Authorization: Bearer {{token}}
+
+###
+# group: Module 21
+# @name Get Bob's Activities - future
+GET {{url}}/api/profiles/bob/activities?
+    predicate=future
+Authorization: Bearer {{token}}
+
+###
+# group: Module 21
+# @name Get Bob's Activities - hosting
+GET {{url}}/api/profiles/bob/activities?
+    predicate=hosting
+Authorization: Bearer {{token}}
+
+###
+# group: IdentityCB
+# @name Login as bob and save token to env
+POST {{url}}/api/account/login
+Content-Type: application/json
+
+{
+  "email": "bob@test.com",
+  "password": "Pa$$w0rd"
+}
+
+> {%
+    // TODO: migrate to HTTP Client Response handler API
+    // const user = pm.response.json();
+    //
+    // pm.test("Has properties", function () {
+    //     pm.expect(user).to.have.property('displayName');
+    //     pm.expect(user).to.have.property('username');
+    //     pm.expect(user).to.have.property('image');
+    //     pm.expect(user).to.have.property('token');
+    // });
+    //
+    // if (pm.test("Has properties")) {
+    //     pm.globals.set('token', user.token);
+    //     pm.globals.set('refreshToken', user.refreshToken);
+    // }
+    //
+    // pm.test("Global token has been set", function() {
+    //     var token = pm.globals.get('token');
+    //     var refreshToken = pm.globals.get('refreshToken');
+    //     pm.expect(token).to.eql(user.token);
+    //     pm.expect(refreshToken).to.eql(user.refreshToken);
+    // });
+%}
+
+###
+# group: IdentityCB
+# @name Get Activities
+GET {{url}}/api/activities
+Authorization: Bearer {{token}}
+
+> {%
+    // TODO: migrate to HTTP Client Response handler API
+    // var data = pm.response.json();
+    //
+    // // response to be 200
+    // pm.test("response is 200", function() {
+    //     pm.response.to.have.status(200)
+    // });
+    //
+    // pm.test("has all properties", function() {
+    //     pm.expect(data[0]).to.have.property('id');
+    //     pm.expect(data[0]).to.have.property('title');
+    //     pm.expect(data[0]).to.have.property('description');
+    //     pm.expect(data[0]).to.have.property('date');
+    //     pm.expect(data[0]).to.have.property('city');
+    //     pm.expect(data[0]).to.have.property('venue');
+    //     pm.expect(data[0]).to.have.property('attendees');
+    // });
+%}
+
+###
+# group: IdentityCB
+# @name Refresh token for bob
+POST {{url}}/api/account/refreshToken
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{}
+
+> {%
+    // TODO: migrate to HTTP Client Response handler API
+    // const user = pm.response.json();
+    //
+    // pm.test("Has properties", function () {
+    //     pm.expect(user).to.have.property('displayName');
+    //     pm.expect(user).to.have.property('username');
+    //     pm.expect(user).to.have.property('image');
+    //     pm.expect(user).to.have.property('token');
+    // });
+    //
+    // if (pm.test("Has properties")) {
+    //     pm.globals.set('token', user.token);
+    // }
+    //
+    // pm.test("Global token has been set", function() {
+    //     var token = pm.globals.get('token');
+    //     pm.expect(token).to.eql(user.token);
+    // });
+%}
+
+###
+# group: IdentityCB
+# @name Regsiter new user
+POST {{url}}/api/account/register
+Content-Type: application/json
+
+{
+  "displayName": "test1",
+  "username": "test1",
+  "email": "zmgbqqswudsmtraqby@mhzayt.online",
+  "password": "Pa$$w0rd"
+}
+
+> {%
+    // TODO: you can add here Response handler
+%}
+
+###
+# group: IdentityCB
+# @name Verify User Email address
+POST {{url}}/api/account/verifyEmail?
+    token=Q2ZESjhCWlZMME41c3pwS2syZDdOVXdNVzQ1eUpsTkZOR0kxalVlK2ZqeXVXYWpoRHhFZkZKY0o0M2M5Qy9ZUzBWNWtONHpHcDlmWVdNa0dodTRscjZYaXh6TjRDbENCWEpac1RaakQvOURoL3piUkRwRDI3QmNNTFpIc3VEMnlJcFMxUjFxaXczRWxRZHhDVDEzWDlBWGVmcXNtWnRUMnZhWDdJMTgwWVBhbURhR2I3d0ZMYlNhRXJkTmZqYUFTZkkyTTlyMG9GWVhseFRkaGlsVjRvTUNKV1JNc0FJK0JXeFR5N3pNbHBhY3ArMHVtWjhXZUVGNllJVFJVV0gzcmx5YklOdz09&
+    email=btw83500@cuoly.com
+Content-Type: application/json
+
+{
+  "token": "Q2ZESjhGeHN3VDhjdytWRXNLM0NqaTBpS0FhZEZGUitqN3JpazNDRVduZ3dpSU5PcW1ZMzBxUDRzMW44ek5MRTFuRnJ0RUk3L3oyY01SR2dyTmlXcVd4UHFMRGc4aTd1clB2OHNXZmp4a0w0TXVtdmRNd2ZTVjgvZnVDbHNCRG5jY3FEQUNLM3FBdHo4VlRZek9lU0dBMXduRVZJRlRvYjZTSXdRdXhtT1gwMlp4NjE3L3hwMkhyaGltNlJCZlFTeUNpMzQwRW85bjlFclg1VmNFZjJDSmhnZStjRkxQUmd1ZkVIdG4vRlFhY0EwV1ZzaVlkelBOc0pNV2lMYnVXRUhnUlFvQT09",
+  "email": "nru02096@eoopy.com"
+}
+
+> {%
+    // TODO: you can add here Response handler
+%}
+
+###
+# group: IdentityCB
+# @name Resend verification email
+GET {{url}}/api/account/resendEmailConfirmationLink?
+    email=btw83500@cuoly.com
+
+> {%
+    // TODO: you can add here Response handler
+%}
+
+###
+# group: IdentityCB
+# @name Forgot Password
+GET {{url}}/api/user/forgotPassword?
+    email=nru02096@eoopy.com
+Content-Type: application/json
+
+> {%
+    // TODO: you can add here Response handler
+%}
+
+###
+# group: IdentityCB
+# @name Reset Password
+POST {{url}}/api/user/resetPassword?
+    token=Q2ZESjhGeHN3VDhjdytWRXNLM0NqaTBpS0FhZEZGUitqN3JpazNDRVduZ3dpSU5PcW1ZMzBxUDRzMW44ek5MRTFuRnJ0RUk3L3oyY01SR2dyTmlXcVd4UHFMRGc4aTd1clB2OHNXZmp4a0w0TXVtdmRNd2ZTVjgvZnVDbHNCRG5jY3FEQUNLM3FBdHo4VlRZek9lU0dBMXduRVZJRlRvYjZTSXdRdXhtT1gwMlp4NjE3L3hwMkhyaGltNlJCZlFTeUNpMzQwRW85bjlFclg1VmNFZjJDSmhnZStjRkxQUmd1ZkVIdG4vRlFhY0EwV1ZzaVlkelBOc0pNV2lMYnVXRUhnUlFvQT09&
+    email=nru02096@eoopy.com
+Content-Type: application/json
+
+{
+  "token": "Q2ZESjhGeHN3VDhjdytWRXNLM0NqaTBpS0FhZ09UNThIUW9DZDY0RVE5bFlBWWR2MExZb3FCb2pyNUlFSDhhRFlFU1NsMTQraWkrUFNSOFV3Vmt2VEsyYnBIdnNPcVppZ1ZEZlEyTzUxMSs5MHhDUmJDYjh5ZTdodlZSTnZNbUpTelREOFY4UHRucnZKZE1RaHJ2dFo1RVdEeTJia1gxNllnWjNVMUZYbWNpVlpMZE15Zk1mWkJ3Q3AxQU15emptOHRCQlJZMFhYK2JIcTBIVTFTM2FuRzFVYzRlMHFla05NQitvSDcwYXBhSFE0UjVV",
+  "email": "nru02096@eoopy.com",
+  "password": "Pa$$w0rd1"
+}
+
+> {%
+    // TODO: you can add here Response handler
+%}
+
+###
+# group: IdentityCB
+# @name Get users - admin
+GET {{url}}/api/admin/users
+Authorization: Bearer {{token}}

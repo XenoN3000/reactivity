@@ -1,10 +1,10 @@
-namespace API.Extentions;
+namespace API.Extensions;
 
-public static class ApplayServicesExtetions
+public static class AplayServicesExtensions
 {
     public static IServiceCollection ApplayServices(this IServiceCollection services, IConfiguration configuration)
     {
-        services.AddControllers();
+        services.ConfigureControllerServices();
         services.AddEndpointsApiExplorer();
         services.AddSwaggerGen();
         services.ConfigurDatabase(configuration.GetConnectionString("DefaultConnection") ?? throw new InvalidOperationException());
@@ -12,7 +12,8 @@ public static class ApplayServicesExtetions
         services.ConfigureIISIntegration();
         services.AddMediatorConfig();
         services.AddAutoMapperConfig();
-
+        services.AddIdentityServices(configuration);
+        
         return services;
     }
 }
