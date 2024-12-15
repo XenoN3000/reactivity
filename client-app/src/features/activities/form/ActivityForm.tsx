@@ -1,6 +1,6 @@
 import 'react'
-import {ChangeEvent, useEffect} from 'react'
-import {Button, FormField, Header, Label, Segment} from "semantic-ui-react";
+import {useEffect} from 'react'
+import {Button, Header,  Segment} from "semantic-ui-react";
 import {Activity} from "../../../app/models/activity.ts";
 import {useState} from "react";
 import {useStore} from "../../../app/stores/store.ts";
@@ -8,7 +8,7 @@ import {observer} from "mobx-react-lite";
 import {Link, useNavigate, useParams} from "react-router-dom";
 import LoadingComponent from "../../../app/layout/LoadingComponent.tsx";
 import {v4 as uuid} from "uuid";
-import {Formik, Form, Field, ErrorMessage} from "formik";
+import {Formik, Form} from "formik";
 import * as Yup from "yup";
 import MyTextInput from '../../../app/common/Form/MyTextInput.tsx';
 import MyTextArea from '../../../app/common/Form/MyTextArea.tsx';

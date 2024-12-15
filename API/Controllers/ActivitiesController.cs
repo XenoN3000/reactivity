@@ -12,6 +12,7 @@ using Activity = Domain.Activity;
 
 namespace API.Controllers;
 
+[AllowAnonymous]
 public class ActivitiesController : BaseApiController
 {
     [HttpGet]

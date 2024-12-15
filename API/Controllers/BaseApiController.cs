@@ -23,15 +23,7 @@ namespace API.Controllers
                 { IsSuccess: true, Value: null } => NotFound(),
                 _ => BadRequest(result.Error)
             };
-            
-            
-            // if (result is null) return NotFound();
-            //
-            // if (result is { IsSuccess: true, Value: not null })
-            //     return Ok(result.Value);
-            // if (result is { IsSuccess: true, Value: null })
-            //     return NotFound();
-            // return BadRequest(result.Error);
         }
+        
     }
 }

@@ -5,7 +5,8 @@ import { Form, Label } from "semantic-ui-react";
 interface Props {
     placeholder: string;
     name: string;
-    lable?: string 
+    lable?: string
+    type?: string;
 }
 
 
