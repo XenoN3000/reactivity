@@ -12,9 +12,9 @@ using Activity = Domain.Activity;
 
 namespace API.Controllers;
 
-[AllowAnonymous]
 public class ActivitiesController : BaseApiController
 {
+    
     [HttpGet]
     public async Task<IActionResult> GetActivities(CancellationToken cancellationToken)
     {
@@ -36,7 +36,8 @@ public class ActivitiesController : BaseApiController
         var result = await Mediator.Send(new Create.Command { Activity = activity }, cancellationToken);
         return HandleResult(result);
     }
-
+    
+    [Authorize(Policy = "IsActivityHost")]
     [HttpPut("{id}")]
     public async Task<IActionResult> UpdateActivity(Guid id, [FromBody] Activity activity,
         CancellationToken cancellationToken)
@@ -50,5 +51,12 @@ public class ActivitiesController : BaseApiController
     public async Task<IActionResult> DeleteActivity(Guid id)
     {
         return HandleResult(await Mediator.Send(new Delete.Command { Id = id }));
+    }
+
+    [HttpPost("{id}/attend")]
+
+    public async Task<IActionResult> Attend(Guid id, CancellationToken cancellationToken)
+    {
+        return  HandleResult(await Mediator.Send(new UpdateAttendance.Command{Id = id}, cancellationToken));
     }
 }

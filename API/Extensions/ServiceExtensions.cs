@@ -1,7 +1,9 @@
 using Application.Activities;
 using Application.Core;
+using Application.Interfaces;
 using FluentValidation;
 using FluentValidation.AspNetCore;
+using Infrastructure.Security;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc.Authorization;
 using Microsoft.EntityFrameworkCore;
@@ -11,6 +13,15 @@ namespace API.Extensions;
 
 public static class ServiceExtensions
 {
+
+    public static IServiceCollection ConfigureHttpContextAccessor(this IServiceCollection services)
+    {
+        services.AddHttpContextAccessor();
+        services.AddScoped<IUserAccessor, UserAccessor>();
+
+        return services;
+    }
+    
     public static IServiceCollection ConfigureControllerServices(this IServiceCollection services)
     {
         services.AddControllers(options =>
