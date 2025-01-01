@@ -13,6 +13,7 @@ public static class AplayServicesExtensions
         services.AddMediatorConfig();
         services.AddAutoMapperConfig();
         services.AddIdentityServices(configuration);
+        services.AddCloudConfig(configuration.GetSection("Cloudinary"));
         services.ConfigureHttpContextAccessor();
         
         return services;

@@ -18,6 +18,6 @@ public class UserDto
     
     public static UserDto CreateFromUser(AppUser user,string token) => new UserDto
     {
-        DisplayName = user.DisplayName, Token = token, Image = null, Username = user.UserName
+        DisplayName = user.DisplayName, Token = token, Image = user.Photos?.FirstOrDefault(x => x.IsMain)?.Url, Username = user.UserName
     };
 }

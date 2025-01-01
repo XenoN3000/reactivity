@@ -1,8 +1,10 @@
 using Application.Activities;
 using Application.Core;
 using Application.Interfaces;
+using CloudinaryDotNet;
 using FluentValidation;
 using FluentValidation.AspNetCore;
+using Infrastructure.Photos;
 using Infrastructure.Security;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc.Authorization;
@@ -73,6 +75,14 @@ public static class ServiceExtensions
         return services;
     }
 
+    public static IServiceCollection AddCloudConfig(this IServiceCollection services, IConfigurationSection section)
+    {
+        services.AddScoped<IPhotoAccessor, PhotoAccessor>();
+        services.Configure<CloudSettings>(section);
+        
+        return services;
+    }
+    
     public static IServiceCollection ConfigurDatabase(this IServiceCollection services, string connetionStringName)
     {
         services.AddDbContext<DataContext>(opt => { opt.UseSqlite(connetionStringName); });

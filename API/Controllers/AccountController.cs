@@ -12,7 +12,7 @@ namespace API.Controllers;
 
 [ApiController]
 [Route("api/[controller]")]
-public class AccountController: ControllerBase
+public class AccountController : ControllerBase
 {
     private readonly UserManager<AppUser> _userManager;
     private readonly TokenService _tokenService;
@@ -27,10 +27,11 @@ public class AccountController: ControllerBase
     [HttpPost("login")]
     public async Task<ActionResult<UserDto>> Login([FromBody] LoginDto loginDto)
     {
-        var user = await _userManager.FindByEmailAsync(loginDto.Email);
+        var user = await _userManager.Users.Include(p => p.Photos)
+            .FirstOrDefaultAsync(u => u.Email == loginDto.Email);
 
         if (user == null) return Unauthorized();
-        
+
         var result = await _userManager.CheckPasswordAsync(user, loginDto.Password);
 
         if (result)
@@ -40,7 +41,6 @@ public class AccountController: ControllerBase
 
         return Unauthorized();
     }
-
 
 
     [AllowAnonymous]
@@ -58,13 +58,14 @@ public class AccountController: ControllerBase
             ModelState.AddModelError("email", "Email is taken");
             return ValidationProblem();
         }
+
         var user = new AppUser
         {
             DisplayName = registerDto.DisplayName,
             Email = registerDto.Email,
             UserName = registerDto.Username,
         };
-        
+
         var result = await _userManager.CreateAsync(user, registerDto.Password);
 
 
@@ -73,20 +74,20 @@ public class AccountController: ControllerBase
             return UserDto.CreateFromUser(user, _tokenService.CreateToken(user));
         }
 
-        return BadRequest(result.Errors );
+        return BadRequest(result.Errors);
     }
-
 
 
     [Authorize]
     [HttpGet]
     public async Task<ActionResult<UserDto>> GetCurrentUser()
     {
-        var user = await _userManager.FindByEmailAsync(User.FindFirstValue(ClaimTypes.Email));
-        
+        var user = await _userManager.Users.Include(p => p.Photos)
+            .FirstOrDefaultAsync(u => u.Email == User.FindFirstValue(ClaimTypes.Email));
+
         return UserDto.CreateFromUser(user, _tokenService.CreateToken(user));
     }
-    
+
     // private UserDto CreateUserDtoObject(AppUser user)
     // {
     //     return new UserDto
@@ -97,5 +98,4 @@ public class AccountController: ControllerBase
     //         Username = user.UserName
     //     };
     // }
-    
 }
