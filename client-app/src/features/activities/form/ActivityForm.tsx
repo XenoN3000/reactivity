@@ -10,11 +10,11 @@ import LoadingComponent from "../../../app/layout/LoadingComponent.tsx";
 import {v4 as uuid} from "uuid";
 import {Formik, Form} from "formik";
 import * as Yup from "yup";
-import MyTextInput from '../../../app/common/Form/MyTextInput.tsx';
-import MyTextArea from '../../../app/common/Form/MyTextArea.tsx';
-import MySelectInput from '../../../app/common/Form/MySelectInput.tsx';
+import MyTextInput from '../../../app/common/form/MyTextInput.tsx';
+import MyTextArea from '../../../app/common/form/MyTextArea.tsx';
+import MySelectInput from '../../../app/common/form/MySelectInput.tsx';
 import { categoryOptions } from '../../../app/common/options/categoryOptions.ts';
-import MyDateInput from '../../../app/common/Form/MyDateInput.tsx';
+import MyDateInput from '../../../app/common/form/MyDateInput.tsx';
 
 
 export default observer(function ActivityForm() {

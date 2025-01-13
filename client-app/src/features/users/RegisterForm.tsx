@@ -1,5 +1,5 @@
 import {ErrorMessage, Form, Formik} from "formik";
-import MyTextInput from "../../app/common/Form/MyTextInput.tsx";
+import MyTextInput from "../../app/common/form/MyTextInput.tsx";
 import {Button, Header} from "semantic-ui-react";
 import {useStore} from "../../app/stores/store.ts";
 import {observer} from "mobx-react-lite";
