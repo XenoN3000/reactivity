@@ -1,4 +1,5 @@
 using Application.Activities.DTOs;
+using Application.Profiles.DTOs;
 using AutoMapper;
 using Domain;
 
@@ -21,6 +22,14 @@ public class MappingProfiles : Profile
 
 
         CreateMap<AppUser, Profiles.Profile>()
-            .ForMember(d => d.Image, o => o.MapFrom(s => s.Photos.FirstOrDefault(x => x.IsMain).Url));
+            .ForMember(d => d.Image, o => o.MapFrom(s => s.Photos.FirstOrDefault(x => x.IsMain).Url)).ReverseMap();
+
+        CreateMap<Profiles.Profile, Profiles.Profile>();
+
+        CreateMap<UserInfoUpdateDto, AppUser>()
+            .ForMember(d => d.Bio, o => o.MapFrom(s => s.Bio))
+            .ForMember(d => d.DisplayName, o => o.MapFrom(s => s.DisplayName));
+        
+
     }
 }

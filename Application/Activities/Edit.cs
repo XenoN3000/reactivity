@@ -44,9 +44,7 @@ public class Edit
             
             var result = await _dataContext.SaveChangesAsync(cancellationToken) > 0;
             
-            if (!result)  return Result<Unit>.Fail("Failed to update activity");
-            
-            return Result<Unit>.Success(Unit.Value);
+            return !result ? Result<Unit>.Fail("Failed to update activity") : Result<Unit>.Success(Unit.Value);
         }
     }
 }

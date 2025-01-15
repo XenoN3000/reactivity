@@ -1,7 +1,7 @@
 import {User} from "./user.ts";
 
 export interface IProfile {
-	username: string ;
+	username: string;
 	displayName: string;
 	image?: string;
 	bio?: string;
@@ -16,6 +16,9 @@ export class Profile implements IProfile {
 		this.image = user.image
 	}
 
+
+
+
 	username: string;
 	displayName: string;
 	image?: string;
@@ -28,3 +31,4 @@ export interface Photo {
 	url: string;
 	isMain: boolean;
 }
+

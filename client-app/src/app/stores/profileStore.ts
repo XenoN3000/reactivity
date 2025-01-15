@@ -43,18 +43,18 @@ export default class ProfileStore {
 			const response = await agent.Profiles.uploadPhoto(file);
 			const photo = response.data;
 			runInAction(() => {
-				if (this.profile){
+				if (this.profile) {
 					this.profile.photos?.push(photo);
-					if (photo.isMain && store.userStore.user){
+					if (photo.isMain && store.userStore.user) {
 						store.userStore.setImage(photo.url);
 						this.profile.image = photo.url;
 					}
 				}
 			})
 
-		}catch (error) {
+		} catch (error) {
 			console.log(error);
-		}finally {
+		} finally {
 			runInAction(() => this.uploading = false);
 		}
 
@@ -64,7 +64,7 @@ export default class ProfileStore {
 		this.loading = true;
 
 		try {
-			await  agent.Profiles.setMainPhoto(photo.id)
+			await agent.Profiles.setMainPhoto(photo.id)
 			store.userStore.setImage(photo.url);
 
 			runInAction(() => {
@@ -74,7 +74,7 @@ export default class ProfileStore {
 					this.profile.image = photo.url;
 				}
 			})
-		}catch (error) {
+		} catch (error) {
 			console.log(error);
 		} finally {
 			runInAction(() => this.loading = false);
@@ -82,21 +82,45 @@ export default class ProfileStore {
 	}
 
 	deleteThePhoto = async (photo: Photo) => {
-			this.loading = true;
+		this.loading = true;
 
-			try {
-				await agent.Profiles.deletPhoto(photo.id);
+		try {
+			await agent.Profiles.deletePhoto(photo.id);
 
-				runInAction(() => {
-					if (this.profile){
-						this.profile.photos = this.profile.photos?.filter(p => p.id !== photo.id);
-					}
-				})
-			}catch (error) {
-				console.log(error);
-			}finally {
-				runInAction(() => this.loading = false);
-			}
+			runInAction(() => {
+				if (this.profile) {
+					this.profile.photos = this.profile.photos?.filter(p => p.id !== photo.id);
+				}
+			})
+		} catch (error) {
+			console.log(error);
+		} finally {
+			runInAction(() => this.loading = false);
+		}
+	}
+
+	updateProfile = async (profile: Partial<Profile>) => {
+		this.loading = true;
+
+		try {
+
+			await agent.Profiles.updateProfile(profile);
+
+			runInAction(() => {
+				if (profile.displayName && profile.displayName !== store.userStore.user?.displayName) {
+					store.userStore.setDisplayName(profile.displayName);
+				}
+
+				this.profile = {...this.profile, ...profile as Profile};
+			})
+
+
+		} catch (error) {
+			console.log(error);
+		} finally {
+			runInAction(() => this.loading = false);
+		}
+
 	}
 
 }
