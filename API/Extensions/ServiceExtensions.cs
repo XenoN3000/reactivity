@@ -15,7 +15,6 @@ namespace API.Extensions;
 
 public static class ServiceExtensions
 {
-
     public static IServiceCollection ConfigureHttpContextAccessor(this IServiceCollection services)
     {
         services.AddHttpContextAccessor();
@@ -23,7 +22,7 @@ public static class ServiceExtensions
 
         return services;
     }
-    
+
     public static IServiceCollection ConfigureControllerServices(this IServiceCollection services)
     {
         services.AddControllers(options =>
@@ -40,7 +39,12 @@ public static class ServiceExtensions
         services.AddCors(options =>
         {
             options.AddPolicy("CorsPolicy",
-                builder => builder.AllowAnyHeader().AllowAnyMethod().WithOrigins("http://localhost:3000"));
+                builder =>
+                    builder
+                        .AllowAnyHeader()
+                        .AllowAnyMethod()
+                        .AllowCredentials()
+                        .WithOrigins("http://localhost:3000"));
         });
 
         return services;
@@ -57,6 +61,13 @@ public static class ServiceExtensions
     {
         services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblies(typeof(List.Handler).Assembly));
 
+        return services;
+    }
+
+
+    public static IServiceCollection AddSignalRConfig(this IServiceCollection services)
+    {
+        services.AddSignalR();
         return services;
     }
 
@@ -79,10 +90,10 @@ public static class ServiceExtensions
     {
         services.AddScoped<IPhotoAccessor, PhotoAccessor>();
         services.Configure<CloudSettings>(section);
-        
+
         return services;
     }
-    
+
     public static IServiceCollection ConfigurDatabase(this IServiceCollection services, string connetionStringName)
     {
         services.AddDbContext<DataContext>(opt => { opt.UseSqlite(connetionStringName); });

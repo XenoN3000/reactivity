@@ -1,4 +1,5 @@
 using Application.Activities.DTOs;
+using Application.Comments.DTOs;
 using Application.Profiles.DTOs;
 using AutoMapper;
 using Domain;
@@ -29,7 +30,11 @@ public class MappingProfiles : Profile
         CreateMap<UserInfoUpdateDto, AppUser>()
             .ForMember(d => d.Bio, o => o.MapFrom(s => s.Bio))
             .ForMember(d => d.DisplayName, o => o.MapFrom(s => s.DisplayName));
-        
+
+        CreateMap<Comment, CommentDto>()
+            .ForMember(d => d.DisplayName, o => o.MapFrom(s => s.Author.DisplayName))
+            .ForMember(d => d.Username, o => o.MapFrom(s => s.Author.UserName))
+            .ForMember(d => d.Image, o => o.MapFrom(s => s.Author.Photos.FirstOrDefault(x => x.IsMain).Url));
 
     }
 }

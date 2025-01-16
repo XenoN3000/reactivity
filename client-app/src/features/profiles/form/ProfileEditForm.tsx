@@ -36,7 +36,7 @@ export function ProfileEditForm({setEditMode}: Props) {
 				})
 			}}
 			        validationSchema={Yup.object({
-				        displayName: Yup.string().min(3).required()
+				        displayName: Yup.string().min(3).required('Display Name is required and show be more than 3 letters'),
 			        })}>
 
 				{({isSubmitting, isValid, dirty}) => (
@@ -48,7 +48,6 @@ export function ProfileEditForm({setEditMode}: Props) {
 						        content={'Update Profile'} type={"submit"}/>
 					</Form>
 				)}
-
 			</Formik>
 		</Segment>
 	)

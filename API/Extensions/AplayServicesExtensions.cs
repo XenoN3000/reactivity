@@ -16,6 +16,7 @@ public static class AplayServicesExtensions
         services.AddValidationConfig();
         services.AddCloudConfig(configuration.GetSection("Cloudinary"));
         services.ConfigureHttpContextAccessor();
+        services.AddSignalRConfig();
         
         return services;
     }
