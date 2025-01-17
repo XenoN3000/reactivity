@@ -52,10 +52,10 @@ public class Update
             _mapper.Map(request.UpdateInfo, user);
 
             _dataContext.Entry(user).State = EntityState.Modified;
-            
+
             var success = await _dataContext.SaveChangesAsync(cancellationToken) > 0;
 
-            return success ? Result<Unit>.Success(Unit.Value) : Result<Unit>.Fail("Problem to Update Profile!!!");
+            return success ? Result<Unit>.Success(Unit.Value) : Result<Unit>.Failure("Problem to Update Profile!!!");
         }
     }
 }

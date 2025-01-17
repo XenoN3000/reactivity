@@ -33,20 +33,20 @@ public class SetMain
 
 
             if (user is null) return null;
-            
+
             var photo = user.Photos.FirstOrDefault(x => x.Id == request.Id);
-            
+
             if (photo is null) return null;
-            
+
             var currentMain = user.Photos.FirstOrDefault(x => x.IsMain);
-            
+
             if (currentMain is not null) currentMain.IsMain = false;
-            
+
             photo.IsMain = true;
-            
+
             var result = await _dataContext.SaveChangesAsync(cancellationToken) > 0;
-            
-            return  result ? Result<Unit>.Success(Unit.Value) : Result<Unit>.Fail("Problem setting main photo !!!");
+
+            return result ? Result<Unit>.Success(Unit.Value) : Result<Unit>.Failure("Problem setting main photo !!!");
         }
     }
 }

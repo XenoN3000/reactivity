@@ -47,8 +47,8 @@ public class Create
             var activity = await _dataContext.Activities.FindAsync(request.ActivityId, cancellationToken);
 
             if (activity == null) return null;
-            
-            var user =await _dataContext.Users
+
+            var user = await _dataContext.Users
                 .Include(p => p.Photos)
                 .SingleOrDefaultAsync(u => u.UserName == _userAccessor.GetUsername(), cancellationToken);
 
@@ -58,12 +58,12 @@ public class Create
                 Activity = activity,
                 Body = request.Body,
             };
-            
+
             activity.Comments.Add(comment);
-            
+
             var success = await _dataContext.SaveChangesAsync(cancellationToken) > 0;
 
-            return success ? Result<CommentDto>.Success(_mapper.Map<CommentDto>(comment)) : Result<CommentDto>.Fail("Failed to add Comment");
+            return success ? Result<CommentDto>.Success(_mapper.Map<CommentDto>(comment)) : Result<CommentDto>.Failure("Failed to add Comment");
         }
     }
 }

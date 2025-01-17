@@ -39,18 +39,18 @@ public class Delete
 
             if (photo is null) return null;
 
-            if (photo.IsMain) return Result<Unit>.Fail("You cant delete your main photo !");
+            if (photo.IsMain) return Result<Unit>.Failure("You cant delete your main photo !");
 
             var result = await _photoAccessor.DeletePhoto(photo.Id);
 
-            if (result is null) return Result<Unit>.Fail("Failed to delete photo from cloudinary!");
-            
+            if (result is null) return Result<Unit>.Failure("Failed to delete photo from cloudinary!");
+
             user.Photos.Remove(photo);
-            
+
             var success = await _dataContext.SaveChangesAsync(cancellationToken) > 0;
-            
-            return success ? Result<Unit>.Success(Unit.Value) : Result<Unit>.Fail("Failed to delete photo from cloudinary!"); 
-            
+
+            return success ? Result<Unit>.Success(Unit.Value) : Result<Unit>.Failure("Failed to delete photo from cloudinary!");
+
         }
     }
 }

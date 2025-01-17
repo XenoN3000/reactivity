@@ -1,9 +1,9 @@
-import {makeAutoObservable, runInAction} from "mobx";
-import {Activity, ActivityFormValues} from "../models/activity.ts";
-import {agent} from "../api/agent.ts";
-import {format} from "date-fns";
-import {store} from "./store.ts";
-import {Profile} from "../models/Profile.ts";
+import { makeAutoObservable, runInAction } from "mobx";
+import { Activity, ActivityFormValues } from "../models/activity.ts";
+import { agent } from "../api/agent.ts";
+import { format } from "date-fns";
+import { store } from "./store.ts";
+import { Profile } from "../models/Profile.ts";
 
 export default class ActivityStore {
 
@@ -24,10 +24,10 @@ export default class ActivityStore {
 
 	get groupedActivities() {
 		return Object.entries(this.activitiesByDate.reduce((activities, activity) => {
-				const date = format(activity.date!, 'dd MMM yyyy');
-				activities[date] = activities[date] ? [...activities[date], activity] : [activity];
-				return activities;
-			}, {} as { [key: string]: Activity[] })
+			const date = format(activity.date!, 'dd MMM yyyy');
+			activities[date] = activities[date] ? [...activities[date], activity] : [activity];
+			return activities;
+		}, {} as { [key: string]: Activity[] })
 		)
 	}
 
@@ -143,7 +143,7 @@ export default class ActivityStore {
 			runInAction(() => {
 
 				if (activity.id) {
-					const updatedActivity = {...this.getActivity(activity.id), ...activity};
+					const updatedActivity = { ...this.getActivity(activity.id), ...activity };
 					this.activityRegistry.set(activity.id, updatedActivity as Activity);
 					this.selectedActivity = updatedActivity as Activity;
 
@@ -206,8 +206,8 @@ export default class ActivityStore {
 		try {
 			await agent.Activities.attend(this.selectedActivity!.id);
 			runInAction(() => {
-					this.selectedActivity!.isCancelled  = !this.selectedActivity?.isCancelled;
-					this.activityRegistry.set(this.selectedActivity!.id, this.selectedActivity!);
+				this.selectedActivity!.isCancelled = !this.selectedActivity?.isCancelled;
+				this.activityRegistry.set(this.selectedActivity!.id, this.selectedActivity!);
 			})
 		} catch (error) {
 			console.log(error);
@@ -220,5 +220,16 @@ export default class ActivityStore {
 
 	clearSelectedActivity = () => {
 		this.selectedActivity = undefined;
+	}
+
+	updateAttendeeFollowing = (username: string) => {
+		this.activityRegistry.forEach(activity => {
+			activity.attendees.forEach(attendee => {
+				if (attendee.username === username) {
+					attendee.following ? attendee.followersCount-- : attendee.followersCount++;
+					attendee.following = !attendee.following;
+				}
+			})
+		})
 	}
 }

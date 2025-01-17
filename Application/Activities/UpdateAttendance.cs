@@ -66,10 +66,10 @@ public class UpdateAttendance
                 activity.Attendees.Add(attendance);
             }
 
-            
+
             var result = await _dataContext.SaveChangesAsync(cancellationToken) > 0;
 
-            return result ? Result<Unit>.Success(Unit.Value) : Result<Unit>.Fail("Failed to update attendance");
+            return result ? Result<Unit>.Success(Unit.Value) : Result<Unit>.Failure("Failed to update attendance");
         }
     }
 }

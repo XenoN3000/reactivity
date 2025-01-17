@@ -14,7 +14,7 @@ namespace API.Controllers
         protected IMediator Mediator => _mediator ??= HttpContext.RequestServices.GetService<IMediator>();
 
 
-        protected ActionResult HandleResult<T>(Result<T>? result)
+        protected ActionResult HandleResult<T>(Result<T> result)
         {
             return result switch
             {
@@ -24,6 +24,6 @@ namespace API.Controllers
                 _ => BadRequest(result.Error)
             };
         }
-        
+
     }
 }

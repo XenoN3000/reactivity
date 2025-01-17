@@ -30,7 +30,7 @@ public class Delete
             _dataContext.Activities.Remove(activity);
             var result = await _dataContext.SaveChangesAsync(cancellationToken) > 0;
 
-            if (!result) return Result<Unit>.Fail("Failed to delete activity");
+            if (!result) return Result<Unit>.Failure("Failed to delete activity");
 
             return Result<Unit>.Success(Unit.Value);
         }

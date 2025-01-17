@@ -46,13 +46,13 @@ public class Add
             };
 
             if (!user.Photos.Any(x => x.IsMain)) photo.IsMain = true;
-            
+
             user.Photos.Add(photo);
-            
+
             var result = await _dataContext.SaveChangesAsync(cancellationToken) > 0;
-            
-            return result ? Result<Photo>.Success(photo) : Result<Photo>.Fail("Problem adding photo!!!");
-            
+
+            return result ? Result<Photo>.Success(photo) : Result<Photo>.Failure("Problem adding photo!!!");
+
         }
     }
 }

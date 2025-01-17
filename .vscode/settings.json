@@ -1,3 +1,4 @@
 {
-    "editor.fontFamily": "Menlo, Monaco, 'Courier New', monospace, 'JetBrains Mono' "
+    "editor.fontFamily": " 'JetBrains Mono', Menlo, Monaco, 'Courier New', monospace",
+    "workbench.colorTheme": "JetBrains Rider Dark Theme",
 }

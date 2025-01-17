@@ -14,7 +14,7 @@ public class Edit
         public Activity Activity { get; set; }
     }
 
-    
+
     public class CommandValidator : AbstractValidator<Command>
     {
         public CommandValidator()
@@ -22,7 +22,7 @@ public class Edit
             RuleFor(x => x.Activity).SetValidator(new ActivityValidator());
         }
     }
-    
+
     public class Handler : IRequestHandler<Command, Result<Unit>>
     {
         private readonly DataContext _dataContext;
@@ -41,10 +41,10 @@ public class Edit
             if (activity is null) return null;
 
             _mapper.Map(request.Activity, activity);
-            
+
             var result = await _dataContext.SaveChangesAsync(cancellationToken) > 0;
-            
-            return !result ? Result<Unit>.Fail("Failed to update activity") : Result<Unit>.Success(Unit.Value);
+
+            return !result ? Result<Unit>.Failure("Failed to update activity") : Result<Unit>.Success(Unit.Value);
         }
     }
 }

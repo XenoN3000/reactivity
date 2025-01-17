@@ -45,14 +45,14 @@ public class Create
                 Activity = request.Activity,
                 IsHost = true
             };
-            
+
             request.Activity.Attendees.Add(attendee);
-            
+
             _dataContext.Activities.Add(request.Activity);
 
             var result = await _dataContext.SaveChangesAsync(cancellationToken) > 0;
 
-            if (!result) Result<Unit>.Fail("Failed to create activity");
+            if (!result) Result<Unit>.Failure("Failed to create activity");
 
             return Result<Unit>.Success(Unit.Value);
         }
