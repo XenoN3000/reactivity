@@ -15,4 +15,4 @@ export default observer(function ModalContainer() {
 		</Modal>
 	)
 
-})
+});

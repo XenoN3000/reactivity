@@ -12,6 +12,12 @@ public class ProfilesController: BaseApiController
         return HandleResult(await Mediator.Send(new Details.Query { Username = username }));
     }
 
+    [HttpGet("{username}/activities")]
+    public async Task<IActionResult> GetUserActivity(string username, [FromQuery] string predicate, CancellationToken cancellationToken)
+    {
+        return HandleResult(await Mediator.Send(new ListUserActivities.Query { ProfileUsername = username, Predicate = predicate}, cancellationToken));
+    }
+
     [HttpPut]
     public async Task<IActionResult> UpdateProfile([FromBody] UserInfoUpdateDto userInfoUpdateDto, CancellationToken cancellationToken)
     {

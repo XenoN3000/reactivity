@@ -9,7 +9,7 @@ import { DatePickerProps } from "react-datepicker";
 
 
 export default function MyDateInput(props: Partial<DatePickerProps>) {
-    const [field, meta, helpers] = useField(props.name!)
+    const [field, meta, helpers] = useField(props.name!);
 
     return(
         <Form.Field error = {meta.touched && !!meta.error}>
@@ -19,6 +19,7 @@ export default function MyDateInput(props: Partial<DatePickerProps>) {
                 {...props}
                 selected={(field.value && new Date(field.value)) || null}
                 onChange={(value) => helpers.setValue(value)}
+                showMonthYearDropdown={props.showMonthYearDropdown ? true : undefined}
             />
 
 

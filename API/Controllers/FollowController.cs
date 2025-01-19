@@ -13,7 +13,7 @@ public class FollowController : BaseApiController
     }
 
     [HttpGet("{username}")]
-    public async Task<IActionResult> GetFollowings(string username, string predicate)
+    public async Task<IActionResult> GetFollowings(string username, [FromQuery] string predicate)
     {
         return HandleResult(await Mediator.Send(new List.Query { Username = username, Predicate = predicate }));
     }

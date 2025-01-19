@@ -16,12 +16,11 @@ public class ActivitiesController : BaseApiController
 {
     
     [HttpGet]
-    public async Task<IActionResult> GetActivities(CancellationToken cancellationToken)
+    public async Task<IActionResult> GetActivities([FromQuery] ActivityParams activityParams,CancellationToken cancellationToken)
     {
-        return HandleResult(await Mediator.Send(new List.Query(), cancellationToken));
+        return HandlePagedResult(await Mediator.Send(new List.Query{Params = activityParams}, cancellationToken));
     }
-
-
+    
     [HttpGet("{id}")]
     public async Task<IActionResult> GetActivity(Guid id, CancellationToken cancellationToken)
     {
@@ -46,7 +45,6 @@ public class ActivitiesController : BaseApiController
         return HandleResult(await Mediator.Send(new Edit.Command { Activity = activity }, cancellationToken));
     }
 
-
     [HttpDelete("{id}")]
     public async Task<IActionResult> DeleteActivity(Guid id)
     {
@@ -54,7 +52,7 @@ public class ActivitiesController : BaseApiController
     }
 
     [HttpPost("{id}/attend")]
-
+    
     public async Task<IActionResult> Attend(Guid id, CancellationToken cancellationToken)
     {
         return  HandleResult(await Mediator.Send(new UpdateAttendance.Command{Id = id}, cancellationToken));

@@ -5,6 +5,7 @@ import { Profile } from "../../app/models/Profile.ts";
 import ProfileAbout from "./ProfileAbout.tsx";
 import ProfileFollowings from './ProfileFollowings.tsx';
 import { useStore } from '../../app/stores/store.ts';
+import ProfileActivities from "./ProfileActivities.tsx";
 
 
 interface Props {
@@ -17,7 +18,7 @@ export default function ({ profile }: Props) {
 	const panes = [
 		{ menuItem: 'About', render: () => <ProfileAbout profile={profile} /> },
 		{ menuItem: 'Photos', render: () => <ProfilePhotos profile={profile} /> },
-		{ menuItem: 'Events', render: () => <Tab.Pane>Events Content</Tab.Pane> },
+		{ menuItem: 'Events', render: () => <ProfileActivities/> },
 		{ menuItem: 'Followers', render: () => <ProfileFollowings /> },
 		{ menuItem: 'Following', render: () => <ProfileFollowings /> },
 	]

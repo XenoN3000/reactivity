@@ -4,7 +4,8 @@ import {toast} from "react-toastify";
 import {router} from "../router/Routes.tsx";
 import {store} from "../stores/store.ts";
 import {User, UserFormValues} from "../models/user.ts";
-import {Photo, Profile} from "../models/Profile.ts";
+import {Photo, Profile, UserActivity} from "../models/Profile.ts";
+import {PaginatedResult} from "../models/pagination.ts";
 
 
 export const sleep = (delay_ms: number) => {
@@ -19,6 +20,11 @@ axios.defaults.baseURL = "http://localhost:5000/api";
 axios.interceptors.response.use(async response => {
 	try {
 		await sleep(1000);
+		const pagination = response.headers['pagination'];
+		if (pagination){
+			response.data = new PaginatedResult(response.data, JSON.parse(pagination));
+			return response as AxiosResponse<PaginatedResult<any>>;
+		}
 		return response;
 	} catch (er) {
 		console.log(er);
@@ -77,13 +83,14 @@ axios.interceptors.request.use((config) => {
 
 const request = {
 	get: <T>(url: string) => axios.get<T>(url).then(responseBody),
+	getWithParams: <T>(url: string, params: URLSearchParams) => axios.get<T>(url, {params}).then(responseBody),
 	post: <T>(url: string, body: object) => axios.post<T>(url, body).then(responseBody),
 	put: <T>(url: string, body: object) => axios.put<T>(url, body).then(responseBody),
 	delete: <T>(url: string) => axios.delete<T>(url).then(responseBody),
 }
 
 const Activities = {
-	list: () => request.get<Activity[]>("/activities"),
+	list: (params: URLSearchParams) => request.getWithParams<PaginatedResult<Activity[]>>("/activities", params),
 	details: (id: string) => request.get<Activity>(`/activities/${id}`),
 	create: (activity: ActivityFormValues) => request.post<void>('/activities', activity),
 	update: (activity: ActivityFormValues) => request.put<void>('/activities/'.concat(activity.id!), activity),
@@ -110,7 +117,8 @@ const Profiles = {
 	deletePhoto: (id: string)=> request.delete(`/photos/${id}/`),
 	updateProfile: (profile: Partial<Profile>) => request.put(`/profiles`, profile),
 	updateFollowing: (username: string) => request.post(`/follow/${username}`, {}),
-	listFollowings: (username: string, predicate: string) => request.get<Profile[]>(`/follow/${username}?predicate=${predicate}`),
+	listFollowings: (username: string, predicate: string) => request.getWithParams<Profile[]>(`/follow/${username}`,new URLSearchParams([['predicate', predicate]])),
+	listActivities: (username: string, predicate: string) => request.getWithParams<UserActivity[]>(`/profiles/${username}/activities`,new URLSearchParams([['predicate', predicate]])),
 }
 
 export const agent = {
