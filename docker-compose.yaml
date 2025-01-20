@@ -1,8 +1,16 @@
 ﻿services:
+  
   sql:
-    image: mcr.microsoft.com/azure-sql-edge
+    image: postgres
+    restart: always
+    
     environment:
-        ACCEPT_EULA: "1"
-        MSSQL_SA_PASSWORD: "Password@123"
+        POSTGRES_USER: admin
+        POSTGRES_PASSWORD: Password@123
+        PGDATA: /var/lib/postgresql/data/pgdata
+        
+    volumes:
+      - /Users/hoseinnahari/Documents/ReactivityDatabase/data:/var/lib/postgresql/data
+        
     ports:
-      - "1433:1433"
+      - "5432:5432"
