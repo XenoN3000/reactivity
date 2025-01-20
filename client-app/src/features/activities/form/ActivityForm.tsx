@@ -79,8 +79,8 @@ export default observer(function ActivityForm() {
 						<MyTextInput placeholder={'Title'}  name={'title'} />
 						<MyTextArea rows={3} placeholder={'Description'}  name={'description'} />
 						<MySelectInput options={categoryOptions} placeholder={'Category'}  name={'category'} />
-						<MyDateInput placeholderText='Date' name='date' showTimeSelect timeCaption='time' dateFormat={'MMMM d, yyyy h:mm aa'} />
-						<Header content={"Loaction Details"} sub color='teal'/>
+						<MyDateInput placeholder={"Date"} name={'date'} label={'date'} />
+						<Header content={"Location Details"} sub color='teal'/>
 						<MyTextInput placeholder={'City'}  name={'city'} />
 						<MyTextInput placeholder={'Venue'}  name={'venue'} />
 						<Button 

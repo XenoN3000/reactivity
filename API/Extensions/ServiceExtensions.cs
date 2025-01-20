@@ -96,7 +96,7 @@ public static class ServiceExtensions
 
     public static IServiceCollection ConfigurDatabase(this IServiceCollection services, string connetionStringName)
     {
-        services.AddDbContext<DataContext>(opt => { opt.UseSqlite(connetionStringName); });
+        services.AddDbContext<DataContext>(opt => { opt.UseSqlServer(connetionStringName); });
 
         return services;
     }

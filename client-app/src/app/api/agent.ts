@@ -15,13 +15,14 @@ export const sleep = (delay_ms: number) => {
 }
 
 
-axios.defaults.baseURL = "http://localhost:5000/api";
+axios.defaults.baseURL = import.meta.env.VITE_API_URL;
 
 axios.interceptors.response.use(async response => {
 	try {
-		await sleep(1000);
+		if (import.meta.env.DEV) await sleep(1000);
+
 		const pagination = response.headers['pagination'];
-		if (pagination){
+		if (pagination) {
 			response.data = new PaginatedResult(response.data, JSON.parse(pagination));
 			return response as AxiosResponse<PaginatedResult<any>>;
 		}
@@ -109,16 +110,16 @@ const Profiles = {
 	uploadPhoto: (file: Blob) => {
 		let formData = new FormData();
 		formData.append('File', file);
-		return axios.post<Photo>('photos', formData,{
+		return axios.post<Photo>('photos', formData, {
 			headers: {"Content-Type": "multipart/form-data"},
 		})
 	},
-	setMainPhoto: (id: string)=> request.post(`/photos/${id}/setMain`, {}),
-	deletePhoto: (id: string)=> request.delete(`/photos/${id}/`),
+	setMainPhoto: (id: string) => request.post(`/photos/${id}/setMain`, {}),
+	deletePhoto: (id: string) => request.delete(`/photos/${id}/`),
 	updateProfile: (profile: Partial<Profile>) => request.put(`/profiles`, profile),
 	updateFollowing: (username: string) => request.post(`/follow/${username}`, {}),
-	listFollowings: (username: string, predicate: string) => request.getWithParams<Profile[]>(`/follow/${username}`,new URLSearchParams([['predicate', predicate]])),
-	listActivities: (username: string, predicate: string) => request.getWithParams<UserActivity[]>(`/profiles/${username}/activities`,new URLSearchParams([['predicate', predicate]])),
+	listFollowings: (username: string, predicate: string) => request.getWithParams<Profile[]>(`/follow/${username}`, new URLSearchParams([['predicate', predicate]])),
+	listActivities: (username: string, predicate: string) => request.getWithParams<UserActivity[]>(`/profiles/${username}/activities`, new URLSearchParams([['predicate', predicate]])),
 }
 
 export const agent = {
