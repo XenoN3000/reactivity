@@ -20,6 +20,12 @@ public class ExceptionMiddleware(RequestDelegate next, ILogger<ExceptionMiddlewa
         catch (Exception ex)
         {
             _logger.LogError(ex, ex.Message);
+            if (ex.InnerException != null)
+            {
+                _logger.LogError(ex.InnerException, ex.InnerException.Message);
+
+            }
+
             context.Response.ContentType = "application/json";
             context.Response.StatusCode = (int)HttpStatusCode.InternalServerError;
 

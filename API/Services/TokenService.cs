@@ -26,8 +26,10 @@ public class TokenService
             new Claim(ClaimTypes.Email, user.Email),
         };
 
-        
-        var key = _environment == "Development"? new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Environment.GetEnvironmentVariable("TokenKey")!)) : new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["TokenKey"]!));
+
+        var key = _environment == "Development"
+            ? new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Environment.GetEnvironmentVariable("TokenKey")!))
+            : new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["TokenKey"]!));
         var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha512Signature);
 
         var tokenDescriptor = new SecurityTokenDescriptor
@@ -38,9 +40,9 @@ public class TokenService
         };
 
         var tokenHandler = new JwtSecurityTokenHandler();
-        
+
         var token = tokenHandler.CreateToken(tokenDescriptor);
-        
+
         return tokenHandler.WriteToken(token);
     }
 }
