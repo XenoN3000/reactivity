@@ -9,10 +9,12 @@ namespace API.Services;
 public class TokenService
 {
     private readonly IConfiguration _configuration;
+    private readonly string _environment;
 
     public TokenService(IConfiguration configuration)
     {
         _configuration = configuration;
+        _environment = Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT");
     }
 
     public string CreateToken(AppUser user)
@@ -24,7 +26,8 @@ public class TokenService
             new Claim(ClaimTypes.Email, user.Email),
         };
 
-        var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["TokenKey"]!));
+        
+        var key = _environment == "Development"? new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Environment.GetEnvironmentVariable("TokenKey")!)) : new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["TokenKey"]!));
         var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha512Signature);
 
         var tokenDescriptor = new SecurityTokenDescriptor
