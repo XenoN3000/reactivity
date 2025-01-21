@@ -26,9 +26,9 @@ jobs:
       - name: Build Project
         run: dotnet publish -c Release -o publish
 
-      - name: Deploy to Liara
-        uses: liara/act-deploy@v1
-        with:
-          liara_token: ${{ secrets.LIARA_TOKEN }}
-          app_name: ${{ secrets.LIARA_APP_NAME }}
-          path: ./publish
+#      - name: Deploy to Liara
+#        uses: liara/act-deploy@v2
+#        with:
+#          liara_token: ${{ secrets.LIARA_TOKEN }}
+#          app_name: ${{ secrets.LIARA_APP_NAME }}
+#          path: ./publish
