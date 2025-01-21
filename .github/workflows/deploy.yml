@@ -1,0 +1,31 @@
+
+name: Deploy to Liara
+
+
+on:
+  push:
+    branches:
+      - liara-publish
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v3
+
+      - name: Setup .NET Core
+        uses: actions/setup-dotnet@v3
+        with:
+          dotnet-version: '8.0'  
+
+      - name: Build Project
+        run: dotnet publish -c Release -o publish
+
+      - name: Deploy to Liara
+        uses: liara/act-deploy@v1
+        with:
+          liara_token: ${{ secrets.LIARA_TOKEN }}
+          app_name: ${{ secrets.LIARA_APP_NAME }}
+          path: ./publish
