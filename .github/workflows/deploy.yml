@@ -27,7 +27,7 @@ jobs:
         run: dotnet publish -c Release -o publish
 
       - name: Deploy to Liara
-        uses: liara/reactivity
+        uses: liara/act-deploy@v1
         with:
           liara_token: ${{ secrets.LIARA_TOKEN }}
           app_name: ${{ secrets.LIARA_APP_NAME }}
