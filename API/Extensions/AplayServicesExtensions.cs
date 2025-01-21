@@ -9,7 +9,6 @@ public static class AplayServicesExtensions
         services.AddSwaggerGen();
         services.ConfigurDatabase(configuration);
         services.ConfigureCors();
-        services.ConfigureIISIntegration();
         services.AddMediatorConfig();
         services.AddAutoMapperConfig();
         services.AddIdentityServices(configuration);

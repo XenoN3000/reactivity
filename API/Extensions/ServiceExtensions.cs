@@ -50,11 +50,11 @@ public static class ServiceExtensions
         return services;
     }
 
-    public static IServiceCollection ConfigureIISIntegration(this IServiceCollection services)
-    {
-        services.Configure<IISOptions>(option => { });
-        return services;
-    }
+    // public static IServiceCollection ConfigureIISIntegration(this IServiceCollection services)
+    // {
+    //     services.Configure<IISOptions>(option => { });
+    //     return services;
+    // }
 
 
     public static IServiceCollection AddMediatorConfig(this IServiceCollection services)
