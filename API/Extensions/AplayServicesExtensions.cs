@@ -7,7 +7,7 @@ public static class AplayServicesExtensions
         services.ConfigureControllerServices();
         services.AddEndpointsApiExplorer();
         services.AddSwaggerGen();
-        services.ConfigurDatabase(configuration.GetConnectionString("DefaultConnection") ?? throw new InvalidOperationException());
+        services.ConfigurDatabase(configuration);
         services.ConfigureCors();
         services.ConfigureIISIntegration();
         services.AddMediatorConfig();
