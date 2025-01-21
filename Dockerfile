@@ -18,8 +18,11 @@ RUN dotnet publish -c Release -o out
 
 
 # Build runtime image
-FROM mcr.microsoft.com/dotnet/aspnet:8.0
+FROM mcr.microsoft.com/dotnet/aspnet:8.0 as base
+
 WORKDIR /app
-COPY --from=build-env /app/out .
+
+COPY . /app
+
 ENTRYPOINT ["dotnet", "API.dll"] 
 
