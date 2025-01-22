@@ -1,8 +1,8 @@
 {
   "app": "reactivity",
-  "port": 8080,
+  "port": 5000,
   "build": {
-    "location": "germany"
+    "location": "iran"
   },
   "disks": []
 }
