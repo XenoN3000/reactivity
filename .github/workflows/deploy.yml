@@ -24,7 +24,7 @@ jobs:
       
       
       - name: Build Project
-        run: dotnet publish -c Release -o publish
+        run: dotnet publish -c Release
 
 #      - name: Deploy to Liara
 #        uses: liara/act-deploy@v2
