@@ -1,7 +1,7 @@
 import 'react'
 import {useEffect} from 'react'
 import {Button, Header,  Segment} from "semantic-ui-react";
-import {ActivityFormValues} from "../../../app/models/activity.ts";
+import {Activity, ActivityFormValues} from "../../../app/models/activity.ts";
 import {useState} from "react";
 import {useStore} from "../../../app/stores/store.ts";
 import {observer} from "mobx-react-lite";
@@ -10,11 +10,12 @@ import LoadingComponent from "../../../app/layout/LoadingComponent.tsx";
 import {v4 as uuid} from "uuid";
 import {Formik, Form} from "formik";
 import * as Yup from "yup";
-import MyTextInput from '../../../app/common/form/MyTextInput.tsx';
-import MyTextArea from '../../../app/common/form/MyTextArea.tsx';
-import MySelectInput from '../../../app/common/form/MySelectInput.tsx';
+
 import { categoryOptions } from '../../../app/common/options/categoryOptions.ts';
-import MyDateInput from '../../../app/common/form/MyDateInput.tsx';
+import MySelectInput from "../../../app/common/form/MySelectInput.tsx";
+import MyTextInput from "../../../app/common/form/MyTextInput.tsx";
+import MyDateInput from "../../../app/common/form/MyDateInput.tsx";
+import MyTextArea from "../../../app/common/form/MyTextArea.tsx";
 
 
 export default observer(function ActivityForm() {
@@ -29,7 +30,7 @@ export default observer(function ActivityForm() {
 	const [activity, setActivity] = useState<ActivityFormValues>(new ActivityFormValues());
 
 
-	const validationSchema = Yup.object<ActivityFormValues>({
+	const validationSchema = Yup.object<Activity>({
 		title: Yup.string().required('Title is required!'),
 		description: Yup.string().required('Description is required!'),
 		category: Yup.string().required(),
@@ -79,8 +80,8 @@ export default observer(function ActivityForm() {
 						<MyTextInput placeholder={'Title'}  name={'title'} />
 						<MyTextArea rows={3} placeholder={'Description'}  name={'description'} />
 						<MySelectInput options={categoryOptions} placeholder={'Category'}  name={'category'} />
-						<MyDateInput placeholder={"Date"} name={'date'} label={'date'} />
-						<Header content={"Location Details"} sub color='teal'/>
+						<MyDateInput placeholderText={"Date"} name={"date"} dateFormat={"MMMM d, yyyy h:mm aa"}  timeFormat={"HH:mm"} timeCaption={"time"}/>
+						<Header content={"Loaction Details"} sub color='teal'/>
 						<MyTextInput placeholder={'City'}  name={'city'} />
 						<MyTextInput placeholder={'Venue'}  name={'venue'} />
 						<Button 
