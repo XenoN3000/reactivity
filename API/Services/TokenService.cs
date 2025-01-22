@@ -26,13 +26,6 @@ public class TokenService
             new Claim(ClaimTypes.Email, user.Email),
         };
 
-        /*
-         * C#
-           new(JwtRegisteredClaimNames.Nbf, currentTime.ToUnixTimeSeconds().ToString()),
-           new(JwtRegisteredClaimNames.Exp, expiresInSeconds.ToString()),
-           new(WebApiCommonDefaults.ClaimTypeName, customer.Id.ToString()),
-           new(ClaimTypes.NameIdentifier, customer.CustomerGuid.ToString())
-         */
         
         // var key = _environment == "Development"
         //     ? new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["TokenKey"]!))

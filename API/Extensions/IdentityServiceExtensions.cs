@@ -26,7 +26,14 @@ public static class IdentityServiceExtensions
 
         // var key = env == "Development" ? new SymmetricSecurityKey(Encoding.UTF8.GetBytes(configuration["TokenKey"]!)) : new SymmetricSecurityKey(Encoding.UTF8.GetBytes(configuration["TokenKey"]!));
 
-        var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(configuration["TokenKey"]!));
+        var tokenKey = configuration["TokenKey"];
+        if (string.IsNullOrEmpty(tokenKey))
+        {
+            throw new Exception("TokenKey is missing from configuration. Ensure it is set in appsettings.json or environment variables.");
+        }
+        
+        var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(tokenKey));
+        
         services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
             .AddJwtBearer(options =>
             {
