@@ -24,8 +24,9 @@ public static class IdentityServiceExtensions
             .AddEntityFrameworkStores<DataContext>();
 
 
-        var key = env == "Development" ? new SymmetricSecurityKey(Encoding.UTF8.GetBytes(configuration["TokenKey"]!)) : new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Environment.GetEnvironmentVariable("TokenKey")!));
+        // var key = env == "Development" ? new SymmetricSecurityKey(Encoding.UTF8.GetBytes(configuration["TokenKey"]!)) : new SymmetricSecurityKey(Encoding.UTF8.GetBytes(configuration["TokenKey"]!));
 
+        var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(configuration["TokenKey"]!));
         services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
             .AddJwtBearer(options =>
             {

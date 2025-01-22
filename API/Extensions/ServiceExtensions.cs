@@ -109,7 +109,7 @@ public static class ServiceExtensions
             else
             {
                 var connUrl = Environment.GetEnvironmentVariable("DATABASE_URL");
-
+                
                 // Parse connection URL to connection string for Npgsql
                 connUrl = connUrl.Replace("postgresql://", string.Empty);
                 var pgUserPass = connUrl.Split("@")[0];
@@ -127,6 +127,8 @@ public static class ServiceExtensions
                 // var pgPass = "y2ZBlbRa3WA3cQ4GK90vcGqV";
                 // var pgDb = "reactivities";
                 
+                // connStr = configuration.GetConnectionString("DefaultConnection");
+
 
                 connStr = $"Server={pgHost};Port={pgPort};User Id={pgUser};Password={pgPass};Database={pgDb}; Trust Server Certificate=true";
             }

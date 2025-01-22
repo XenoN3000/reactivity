@@ -27,9 +27,11 @@ public class TokenService
         };
 
 
-        var key = _environment == "Development"
-            ? new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Environment.GetEnvironmentVariable("TokenKey")!))
-            : new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["TokenKey"]!));
+        // var key = _environment == "Development"
+        //     ? new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["TokenKey"]!))
+        //     : new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["TokenKey"]!));
+        
+        var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["TokenKey"]!));
         var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha512Signature);
 
         var tokenDescriptor = new SecurityTokenDescriptor
