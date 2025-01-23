@@ -20,7 +20,7 @@ export default observer(function RegisterForm() {
 			        displayName: Yup.string().min(2).required(),
 			        username: Yup.string().min(3).required(),
 			        email: Yup.string().required(),
-			        password: Yup.string().min(8, "password is too short - should be at least 8 character").matches(passwordRules).required("password must be at least 8 character and contain at least 1 UpperCase , 1 lowerCase, 1 Number   "),
+			        password: Yup.string().min(8, "password is too short - should be at least 8 character").matches(passwordRules, "contain at least 1 UpperCase , 1 lowerCase, 1 Number").required("password must be at least 8 character and contain at least 1 UpperCase , 1 lowerCase, 1 Number   "),
 		        })}
 		>
 

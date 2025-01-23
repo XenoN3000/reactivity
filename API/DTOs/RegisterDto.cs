@@ -8,7 +8,7 @@ public class RegisterDto
 
 
     [Required]
-    [RegularExpression("(?=.*\\d)(?=.*[a-z])(?=.*[A-Z]).{8,16}$", ErrorMessage = "Please enter a valid Password")]
+    [RegularExpression("(?=.*\\d)(?=.*[a-z])(?=.*[A-Z]).{8,16}$", ErrorMessage = "Please enter a valid Password - at least 1 upperCase 1 lowerCase and 1 number  minimum 8 character")]
     public string Password { get; set; }
 
     [Required] public string DisplayName { get; set; }
