@@ -9,6 +9,9 @@ import ValidationError from "../errors/ValidationError.tsx";
 
 export default observer(function RegisterForm() {
 	const {userStore} = useStore();
+	const passwordRules = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])$/;
+
+
 	return (
 		<Formik initialValues={{displayName: '', username: '', email: '', password: '', error: null}}
 		        onSubmit={(values, {setErrors}) => userStore.register(values).catch((error) =>
@@ -17,7 +20,7 @@ export default observer(function RegisterForm() {
 			        displayName: Yup.string().min(2).required(),
 			        username: Yup.string().min(3).required(),
 			        email: Yup.string().required(),
-			        password: Yup.string().min(8).required("password must be at least 8 character and contain at least 1 UpperCase , 1 lowerCase, 1 Number   "),
+			        password: Yup.string().min(8, "password is too short - should be at least 8 character").matches(passwordRules).required("password must be at least 8 character and contain at least 1 UpperCase , 1 lowerCase, 1 Number   "),
 		        })}
 		>
 
