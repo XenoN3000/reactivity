@@ -11,7 +11,7 @@ interface Props {
 
 export default function ActivityListItem({activity}: Props) {
 	function trunc(str: string | undefined) {
-		if (str) return str.length > 35 ? str.substring(0, 35) + "..." : str;
+		if (str) return str.length > 70 ? str.substring(0, 70) + "..." : str;
 	}
 
 	return (
