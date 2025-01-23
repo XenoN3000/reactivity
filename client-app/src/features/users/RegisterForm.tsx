@@ -14,10 +14,10 @@ export default observer(function RegisterForm() {
 		        onSubmit={(values, {setErrors}) => userStore.register(values).catch((error) =>
 			        setErrors({error}))}
 		        validationSchema={Yup.object({
-			        displayName: Yup.string().required(),
-			        username: Yup.string().required(),
+			        displayName: Yup.string().min(2).required(),
+			        username: Yup.string().min(3).required(),
 			        email: Yup.string().required(),
-			        password: Yup.string().required(),
+			        password: Yup.string().min(8).required("password must be at least 8 character and contain at least 1 UpperCase , 1 lowerCase, 1 Number   "),
 		        })}
 		>
 

@@ -23,8 +23,9 @@ export default class UserStore {
 			store.commonStore.setToken(user.token)
 			runInAction(() => {
 				this.user = user
+				router.navigate('/activities')
+
 			})
-			router.navigate('/activities')
 			store.modalStore.closeModal();
 			console.log(user);
 		} catch (error) {
@@ -41,8 +42,8 @@ export default class UserStore {
 			runInAction(() => {
 				this.user = user
 			})
-			router.navigate('/activities')
-			console.log(user);
+			router.navigate('/activities');
+			store.modalStore.closeModal();
 		} catch (error) {
 			console.log(error);
 			throw error;
