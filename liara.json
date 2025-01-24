@@ -1,5 +1,5 @@
 {
-  "app": "reactivity",
+  "app": "reactivities",
   "port": 8080,
   "build": {
     "location": "iran"

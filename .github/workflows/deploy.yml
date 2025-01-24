@@ -26,8 +26,8 @@ jobs:
       - name: Install Liara CLI
         uses: actions/setup-node@v4
         with: 
-          node-version: '18'
-        
+          node-version: "22"        
+          
       - name: Instal liara CLI   
         run: npm i -g @liara/cli@7
         
@@ -35,9 +35,8 @@ jobs:
         env:
           LIARA_TOKEN: ${{ secrets.LIARA_API_TOKEN }}
           
-        run: |
-          if [ ${{ github.ref }} == 'refs/heads/liara-publish' ]; then
-            liara deploy --app="reactivities" --api-token="$LIARA_TOKEN" --no-app-logs
+        run: 
+          liara deploy --app="reactivities" --api-token="$LIARA_TOKEN" --no-app-logs
         
   docker:
     runs-on: ubuntu-latest
