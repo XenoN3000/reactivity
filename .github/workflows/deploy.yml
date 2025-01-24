@@ -34,9 +34,10 @@ jobs:
       - name: Deploy
         env:
           LIARA_TOKEN: ${{ secrets.LIARA_API_TOKEN }}
+          
         run: |
           if [ ${{ github.ref }} == 'refs/heads/liara-publish' ]; then
-            liara deploy --app="my-production-app" --api-token="$LIARA_TOKEN" --no-app-logs
+            liara deploy --app="reactivities" --api-token="$LIARA_TOKEN" --no-app-logs
         
   docker:
     runs-on: ubuntu-latest
