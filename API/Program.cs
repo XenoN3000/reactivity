@@ -32,6 +32,7 @@ app.UseCspReportOnly(options => options
     .FrameAncestors(s => s.Self())
     .ImageSources(s => s.Self().CustomSources("https://res.cloudinary.com", "blob:"))
     .ScriptSources(s => s.Self())
+    .ConnectSources(s => s.Self())
 );
 
 if (app.Environment.IsDevelopment())
