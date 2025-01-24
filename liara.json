@@ -1,5 +1,6 @@
 {
   "app": "reactivities",
+  "image": "xenon1998/reactivities:latest",
   "port": 8080,
   "build": {
     "location": "iran"
