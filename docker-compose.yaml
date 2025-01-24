@@ -5,12 +5,29 @@
     restart: always
     
     environment:
-        POSTGRES_USER: admin
-        POSTGRES_PASSWORD: Password@123
-        PGDATA: /var/lib/postgresql/data/pgdata
-        
+      POSTGRES_USER: admin
+      POSTGRES_PASSWORD: Password@123
+      PGDATA: /var/lib/postgresql/data/pgdata
+    
     volumes:
       - /Users/hoseinnahari/Documents/ReactivityDatabase/data:/var/lib/postgresql/data
 
     ports:
       - "5432:5432"
+  api:
+    image: api
+    restart: always
+    
+    environment:
+      ASPNETCORE_ENVIRONMENT: Development
+      
+    depends_on:
+      - sql
+    
+    build:
+      context: .
+      dockerfile: Dockerfile
+          
+    ports: 
+      - "80:8080"
+    
